@@ -1,16 +1,40 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useRef, useState } from "react";
+import Navbar from "@/components/Navbar";
+import StatsTicker from "@/components/StatsTicker";
+import HeroSection from "@/components/HeroSection";
+import PredictorForm from "@/components/PredictorForm";
+import ResultPanel from "@/components/ResultPanel";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  const formRef = useRef<HTMLDivElement>(null);
+  const [showResult, setShowResult] = useState(false);
+
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handlePredict = () => {
+    setShowResult(true);
+    setTimeout(() => {
+      document.getElementById("result-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen bg-background">
+      <h2 className="sr-only">Salary Predictor — a web app to predict your market salary based on role, skills, experience, and location</h2>
+      <Navbar />
+      <StatsTicker />
+      <HeroSection onScrollToForm={scrollToForm} />
+      <PredictorForm ref={formRef} onPredict={handlePredict} />
+      {showResult && (
+        <div id="result-panel">
+          <ResultPanel />
+        </div>
+      )}
+      <div className="h-16" />
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
