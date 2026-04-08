@@ -30,8 +30,8 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
             <CardContent className="space-y-8 p-6 sm:p-8 lg:p-10">
               <SectionHeading
                 eyebrow="01 / Estimator"
-                title="Tell us how this role looks in the Philippine market."
-                description="The estimator now prioritizes the inputs Filipino professionals actually use in salary conversations: location, work setup, company type, and monthly compensation context."
+                title="Tell us what kind of role you are benchmarking."
+                description="Use the filters below to get a salary range that feels closer to how compensation is actually discussed in the Philippines: monthly pay, city-based differences, remote premiums, and company type."
               />
 
               <Tabs value={activeTab} onValueChange={(value) => onChangeTab(value as EstimatorTabId)}>
@@ -80,7 +80,7 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
                       Tools or specialization
                     </p>
                     <p className="text-sm leading-6 text-foreground/65">
-                      Optional, but useful when you want a more realistic benchmark than job title alone.
+                      Optional, but helpful when your role pays differently because of domain tools, technical depth, or specialized work.
                     </p>
                   </div>
 
@@ -111,7 +111,7 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
               </Card>
 
               <Button onClick={onCalculate} size="lg" className="w-fit rounded-full px-6 shadow-soft transition hover:-translate-y-0.5">
-                Calculate my salary
+                Show my salary estimate
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </CardContent>

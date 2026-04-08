@@ -6,11 +6,11 @@ describe("SalaryEstimatorPage", () => {
   it("reveals a salary estimate when the workbench is submitted", () => {
     render(<SalaryEstimatorPage />);
 
-    expect(screen.getByText(/see your market salary in the philippines/i)).toBeInTheDocument();
+    expect(screen.getByText(/know your market salary in the philippines/i)).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: /calculate my salary/i }));
+    fireEvent.click(screen.getByRole("button", { name: /show my salary estimate/i }));
 
-    expect(screen.getByText(/your estimated market range in the philippines/i)).toBeInTheDocument();
-    expect(screen.getByText(/comparable roles in the philippine market/i)).toBeInTheDocument();
+    expect(screen.getByText(/your estimated salary range in the philippine market/i)).toBeInTheDocument();
+    expect(screen.getByText(/comparable salary signals in the philippine market/i)).toBeInTheDocument();
   });
 });

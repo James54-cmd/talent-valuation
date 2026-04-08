@@ -18,8 +18,8 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
       <PageContainer className="space-y-10">
         <SectionHeading
           eyebrow="02 / Result"
-          title="Your estimated market range in the Philippines."
-          description="The result is monthly-first, gross-first, and transparent about 13th month pay, allowances, and the sources behind the benchmark."
+          title="Your estimated salary range in the Philippine market."
+          description="This result is designed to be useful in a real compensation conversation: monthly gross first, yearly context second, and a clear explanation of 13th month pay, benefits, and benchmark confidence."
         />
 
         <div className="grid gap-5 lg:grid-cols-[1.35fr_0.95fr]">
@@ -28,12 +28,12 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
               <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/45">
-                    Estimated monthly salary
+                    Estimated monthly salary range
                   </p>
                   <p className="mt-4 font-display text-5xl tracking-[-0.05em] text-foreground sm:text-6xl">
                     {formatCurrency(estimate.lowerBound)} - {formatCurrency(estimate.upperBound)}
                   </p>
-                  <p className="mt-3 text-sm text-foreground/65">{estimate.summary} · gross per month</p>
+                  <p className="mt-3 text-sm text-foreground/65">{estimate.summary} · gross per month before taxes and deductions</p>
                 </div>
 
                 <Badge className="h-fit rounded-full bg-emerald-500/10 px-4 py-2 text-sm font-semibold text-emerald-700 hover:bg-emerald-500/10">
@@ -85,6 +85,7 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
                     <p className="mt-3 font-display text-3xl tracking-[-0.04em] text-foreground">
                       {formatCurrency(estimate.annualizedWithThirteenthMonth)}
                     </p>
+                    <p className="mt-2 text-sm text-foreground/60">This includes the legally required 13th month pay.</p>
                   </CardContent>
                 </Card>
                 <Card className="rounded-[1.5rem] border-border/60 bg-background shadow-none">
@@ -101,7 +102,7 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
           <div className="space-y-5">
             <Card className="rounded-[2rem] border-border/60 bg-panel shadow-soft">
               <CardContent className="p-6">
-                <p className="text-sm font-semibold text-foreground">What moved the estimate</p>
+                <p className="text-sm font-semibold text-foreground">What influenced the estimate</p>
                 <div className="mt-5 space-y-4">
                   {estimate.drivers.map((driver) => (
                     <div key={driver.label} className="grid grid-cols-[1fr_92px_42px] items-center gap-3">
@@ -123,7 +124,7 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
 
             <Card className="rounded-[2rem] border-0 bg-foreground text-background shadow-soft">
               <CardContent className="p-6">
-                <p className="text-sm font-semibold text-background/85">Salary + benefits breakdown</p>
+                <p className="text-sm font-semibold text-background/85">Salary and benefits breakdown</p>
                 <div className="mt-5 space-y-4">
                   {estimate.compensation.map((line) => (
                     <div key={line.label} className="border-b border-white/10 pb-4 last:border-none last:pb-0">
@@ -144,11 +145,11 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
 
             <Card className="rounded-[2rem] border-border/60 bg-panel shadow-soft">
               <CardContent className="p-6">
-                <p className="text-sm font-semibold text-foreground">Trust and methodology</p>
+                <p className="text-sm font-semibold text-foreground">Why this estimate should feel credible</p>
                 <div className="mt-4 space-y-3 text-sm text-foreground/65">
-                  <p>Based on {estimate.dataPoints.toLocaleString("en-PH")} localized salary signals.</p>
-                  <p>Updated {estimate.updatedAt}.</p>
-                  <p>Estimates are based on aggregated data and actual salaries may vary.</p>
+                  <p>Built from {estimate.dataPoints.toLocaleString("en-PH")} localized benchmark signals.</p>
+                  <p>Benchmarks last updated {estimate.updatedAt}.</p>
+                  <p>Figures are estimates based on aggregated market data. Actual offers may still vary by company, benefits, and negotiation.</p>
                 </div>
                 <Separator className="my-5 bg-border/60" />
                 <div className="space-y-3">
@@ -167,8 +168,8 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
         <div className="space-y-6 border-t border-border/60 pt-10">
           <SectionHeading
             eyebrow="03 / Context"
-            title="Comparable roles in the Philippine market."
-            description="Ranges stay broad on purpose. The product should feel credible, not falsely precise."
+            title="Comparable salary signals in the Philippine market."
+            description="These ranges stay intentionally broad. A trustworthy estimator should guide your expectations, not pretend to know your exact offer."
           />
           <div className="grid gap-4 md:grid-cols-3">
             {estimate.peerRoles.map((role) => (

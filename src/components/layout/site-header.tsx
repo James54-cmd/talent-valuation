@@ -29,7 +29,7 @@ export function SiteHeader() {
         </nav>
 
         <Button asChild variant="outline" className="rounded-full border-foreground/10 bg-panel text-foreground hover:border-primary/30 hover:bg-panel hover:text-primary">
-          <a href="#valuation-workbench">Open workbench</a>
+          <a href="#valuation-workbench">Check my salary</a>
         </Button>
       </PageContainer>
     </header>

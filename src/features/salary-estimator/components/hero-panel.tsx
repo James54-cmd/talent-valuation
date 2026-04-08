@@ -22,21 +22,21 @@ export function HeroPanel({ estimate, summary, onOpenWorkbench, onShowPreview }:
         <div className="space-y-8">
           <Badge variant="outline" className="gap-2 rounded-full border-primary/15 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
             <Sparkles className="h-3.5 w-3.5" />
-            Built for the Philippine job market
+            Built for Filipino job seekers and hiring teams
           </Badge>
 
           <div className="space-y-5">
             <h1 className="max-w-3xl font-display text-5xl leading-[0.95] tracking-[-0.06em] text-foreground sm:text-6xl lg:text-7xl">
-              See your market salary in the Philippines.
+              Know your market salary in the Philippines.
             </h1>
             <p className="max-w-2xl text-base leading-8 text-foreground/70 sm:text-lg">
-              Monthly-first salary estimates, 13th month built into the annual view, and filters that actually matter for Filipino professionals: NCR vs Cebu vs Davao, local vs MNC, and remote PH vs remote international.
+              Get a practical salary range in Philippine pesos, based on role, experience, location, company type, and work setup. We show monthly pay first, then explain annual gross, 13th month pay, and common benefits so the result feels closer to how compensation is discussed locally.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <Button onClick={onOpenWorkbench} size="lg" className="rounded-full px-6 shadow-soft transition hover:-translate-y-0.5">
-              Estimate my salary
+              Check my salary range
               <ArrowRight className="h-4 w-4" />
             </Button>
             <Button
@@ -45,21 +45,21 @@ export function HeroPanel({ estimate, summary, onOpenWorkbench, onShowPreview }:
               size="lg"
               className="rounded-full border-foreground/10 bg-panel text-foreground hover:border-primary/30 hover:bg-panel hover:text-primary"
             >
-              View sample result
+              See a sample estimate
             </Button>
           </div>
 
           <dl className="grid gap-5 sm:grid-cols-3">
             <div>
-              <dt className="text-xs uppercase tracking-[0.24em] text-foreground/45">Monthly midpoint</dt>
+              <dt className="text-xs uppercase tracking-[0.24em] text-foreground/45">Typical monthly pay</dt>
               <dd className="mt-2 text-lg font-medium text-foreground">{formatCurrency(estimate.baseSalary)}</dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-[0.24em] text-foreground/45">Yearly gross</dt>
+              <dt className="text-xs uppercase tracking-[0.24em] text-foreground/45">Annual gross with 13th month</dt>
               <dd className="mt-2 text-lg font-medium text-foreground">{formatCurrency(estimate.annualizedWithThirteenthMonth)}</dd>
             </div>
             <div>
-              <dt className="text-xs uppercase tracking-[0.24em] text-foreground/45">Trust signal</dt>
+              <dt className="text-xs uppercase tracking-[0.24em] text-foreground/45">Benchmark coverage</dt>
               <dd className="mt-2 text-lg font-medium text-foreground">{estimate.dataPoints.toLocaleString("en-PH")} data points</dd>
             </div>
           </dl>
@@ -67,13 +67,13 @@ export function HeroPanel({ estimate, summary, onOpenWorkbench, onShowPreview }:
 
         <div className="relative">
           <Badge variant="outline" className="absolute -top-4 left-6 rounded-full border-border/70 bg-background px-4 py-2 text-xs font-medium text-foreground shadow-soft">
-            Updated {estimate.updatedAt}
+            Benchmarks updated {estimate.updatedAt}
           </Badge>
           <Card className="rounded-[2rem] border-border/60 bg-panel shadow-soft">
             <CardHeader className="space-y-0 p-7 pb-0">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-[11px] uppercase tracking-[0.28em] text-foreground/45">Live Philippine benchmark</p>
+                  <p className="text-[11px] uppercase tracking-[0.28em] text-foreground/45">Sample Philippine benchmark</p>
                   <h2 className="mt-2 text-xl font-semibold text-foreground">{summary}</h2>
                 </div>
                 <Badge className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 hover:bg-emerald-500/10">
@@ -84,18 +84,18 @@ export function HeroPanel({ estimate, summary, onOpenWorkbench, onShowPreview }:
 
             <CardContent className="p-7">
               <div className="rounded-[1.5rem] border border-border/60 bg-background px-6 py-7 text-center">
-                <p className="text-xs uppercase tracking-[0.24em] text-foreground/45">Estimated monthly salary</p>
+                <p className="text-xs uppercase tracking-[0.24em] text-foreground/45">Estimated monthly salary range</p>
                 <p className="mt-3 font-display text-5xl tracking-[-0.05em] text-foreground">
                   {formatCurrency(estimate.lowerBound)} - {formatCurrency(estimate.upperBound)}
                 </p>
-                <p className="mt-2 font-mono text-sm text-foreground/55">Gross per month</p>
+                <p className="mt-2 font-mono text-sm text-foreground/55">Gross per month, in PHP</p>
               </div>
 
               <Separator className="my-7 bg-border/60" />
 
               <dl className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <dt className="text-sm text-foreground/60">Yearly gross with 13th month</dt>
+                  <dt className="text-sm text-foreground/60">Annual gross including 13th month</dt>
                   <dd className="font-mono text-sm text-foreground">{formatCurrency(estimate.annualizedWithThirteenthMonth)}</dd>
                 </div>
                 <div className="flex items-center justify-between">
@@ -110,7 +110,7 @@ export function HeroPanel({ estimate, summary, onOpenWorkbench, onShowPreview }:
             </CardContent>
           </Card>
           <Badge variant="outline" className="absolute -bottom-4 right-5 rounded-full border-border/70 bg-background px-4 py-2 text-xs font-medium text-foreground shadow-soft">
-            Based on localized PH salary logic
+            Range-based estimate, not a fixed promise
           </Badge>
         </div>
       </PageContainer>
