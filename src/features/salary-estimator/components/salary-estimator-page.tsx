@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { EstimatorForm } from "@/features/salary-estimator/components/estimator-form";

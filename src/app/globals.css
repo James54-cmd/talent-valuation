@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Bricolage+Grotesque:wght@300;400;500;600;700&display=swap");
-@import "@/styles/tokens.css";
+@import "../styles/tokens.css";
 
 @tailwind base;
 @tailwind components;
