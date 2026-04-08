@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createSalaryEstimate } from "@/features/salary-estimator/lib/salary-estimation-formula";
+import { estimateSalary } from "@/features/salary-estimator/lib/estimate-salary";
 import { salaryEstimateRequestSchema } from "@/features/salary-estimator/schemas/salary-estimator.schema";
 
 export async function POST(request: Request) {
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const estimate = createSalaryEstimate(parsed.data);
+  const estimate = await estimateSalary(parsed.data);
 
   return NextResponse.json({ estimate });
 }
