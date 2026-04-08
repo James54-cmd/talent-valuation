@@ -15,10 +15,12 @@ export function SalaryEstimatorPage() {
   const {
     activeTab,
     calculate,
+    calculationError,
     estimatorFields,
     estimate,
     form,
     hasCalculated,
+    isCalculating,
     setActiveTab,
     skillOptions,
     tabs,
@@ -57,8 +59,10 @@ export function SalaryEstimatorPage() {
       <EstimatorForm
         ref={workbenchRef}
         activeTab={activeTab}
+        calculationError={calculationError}
         fields={estimatorFields}
         form={form}
+        isCalculating={isCalculating}
         onCalculate={revealResults}
         onChangeField={updateField}
         onChangeTab={setActiveTab}

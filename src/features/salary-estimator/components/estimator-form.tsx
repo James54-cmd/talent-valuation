@@ -11,8 +11,10 @@ import type { EstimatorField, EstimatorTabId, FieldOption, SalaryFormState } fro
 
 type EstimatorFormProps = {
   activeTab: EstimatorTabId;
+  calculationError?: string | null;
   fields: EstimatorField[];
   form: SalaryFormState;
+  isCalculating?: boolean;
   onCalculate: () => void;
   onChangeTab: (tabId: EstimatorTabId) => void;
   onChangeField: (fieldId: keyof SalaryFormState, value: string) => void;
@@ -22,7 +24,7 @@ type EstimatorFormProps = {
 };
 
 export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
-  ({ activeTab, fields, form, onCalculate, onChangeTab, onChangeField, onToggleSkill, skillOptions, tabs }, ref) => {
+  ({ activeTab, calculationError, fields, form, isCalculating, onCalculate, onChangeTab, onChangeField, onToggleSkill, skillOptions, tabs }, ref) => {
     return (
       <section ref={ref} id="valuation-workbench" className="py-16 sm:py-20">
         <PageContainer>
@@ -110,8 +112,15 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
                 </CardContent>
               </Card>
 
-              <Button onClick={onCalculate} size="lg" className="w-fit rounded-full px-6 shadow-soft transition hover:-translate-y-0.5">
-                Show my salary estimate
+              {calculationError ? <p className="text-sm text-amber-700">{calculationError}</p> : null}
+
+              <Button
+                onClick={onCalculate}
+                size="lg"
+                disabled={isCalculating}
+                className="w-fit rounded-full px-6 shadow-soft transition hover:-translate-y-0.5 disabled:translate-y-0"
+              >
+                {isCalculating ? "Refreshing estimate..." : "Show my salary estimate"}
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </CardContent>

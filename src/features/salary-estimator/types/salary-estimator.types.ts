@@ -23,6 +23,32 @@ export type SalaryFormState = Record<EstimatorFieldId, string> & {
   skills: string[];
 };
 
+export type SalaryBenchmarkDimensions = Record<EstimatorFieldId, string>;
+
+export type SalaryEstimateRequest = SalaryFormState;
+
+export type SalaryBenchmarkRecord = {
+  roleTitle: string;
+  dimensions: SalaryBenchmarkDimensions;
+  benchmarkMonthlyGross: number;
+  sampleSize: number;
+  updatedAt: string;
+  sourceLabels: string[];
+};
+
+export type SalaryEstimationBreakdown = {
+  roleBaseMonthlyGross: number;
+  skillAdjustment: number;
+  experienceAdjustment: number;
+  locationAdjustment: number;
+  industryAdjustment: number;
+  workSetupAdjustment: number;
+  companyTypeAdjustment: number;
+  monthlyGrossMedian: number;
+  lowerBoundMonthlyGross: number;
+  upperBoundMonthlyGross: number;
+};
+
 export type DriverInsight = {
   label: string;
   impactLabel: string;
@@ -71,6 +97,8 @@ export type SalaryEstimate = {
   comparisonLabel: string;
   regionalComparison: string;
   summary: string;
+  benchmark: SalaryBenchmarkRecord;
+  calculation: SalaryEstimationBreakdown;
   drivers: DriverInsight[];
   compensation: CompensationLine[];
   benefits: BenefitInsight[];
