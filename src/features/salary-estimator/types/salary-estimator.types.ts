@@ -10,8 +10,8 @@ export type EstimatorFieldId =
   | "experience"
   | "location"
   | "industry"
-  | "education"
-  | "companySize";
+  | "workSetup"
+  | "companyType";
 
 export type EstimatorField = {
   id: EstimatorFieldId;
@@ -33,8 +33,17 @@ export type DriverInsight = {
 export type CompensationLine = {
   label: string;
   amount: string;
-  deltaLabel: string;
-  direction: "up" | "down";
+  detail?: string;
+};
+
+export type BenefitInsight = {
+  label: string;
+  detail: string;
+};
+
+export type SourceAttribution = {
+  label: string;
+  detail: string;
 };
 
 export type PeerRole = {
@@ -51,9 +60,20 @@ export type SalaryEstimate = {
   medianSalary: number;
   percentile25: number;
   percentile75: number;
-  totalCompensation: number;
+  annualizedBase: number;
+  annualizedWithThirteenthMonth: number;
+  annualizedTotal: number;
+  thirteenthMonthPay: number;
+  annualBonus: number;
+  monthlyAllowances: number;
+  dataPoints: number;
+  updatedAt: string;
+  comparisonLabel: string;
+  regionalComparison: string;
   summary: string;
   drivers: DriverInsight[];
   compensation: CompensationLine[];
+  benefits: BenefitInsight[];
+  sources: SourceAttribution[];
   peerRoles: PeerRole[];
 };

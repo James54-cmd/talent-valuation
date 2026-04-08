@@ -1,9 +1,9 @@
 export const appConfig = {
-  name: "Paygrade",
-  tagline: "Talent valuation studio",
+  name: "SalarioPH",
+  tagline: "Philippine salary intelligence",
   navigation: [
-    { label: "Explore", href: "#valuation-workbench" },
+    { label: "Estimator", href: "#valuation-workbench" },
     { label: "Benchmarks", href: "#valuation-workbench" },
-    { label: "Companies", href: "#valuation-workbench" },
+    { label: "Methodology", href: "#valuation-workbench" },
   ],
 } as const;

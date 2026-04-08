@@ -1,29 +1,37 @@
-import type { EstimatorField, EstimatorTabId, FieldOption, PeerRole, SalaryEstimate, SalaryFormState } from "@/features/salary-estimator/types/salary-estimator.types";
+import type {
+  BenefitInsight,
+  EstimatorField,
+  EstimatorTabId,
+  FieldOption,
+  PeerRole,
+  SalaryEstimate,
+  SalaryFormState,
+  SourceAttribution,
+} from "@/features/salary-estimator/types/salary-estimator.types";
 
 type RoleProfile = {
   title: string;
   baseSalary: number;
-  benchmarkRange: [number, number];
 };
 
 const skillOptions: FieldOption[] = [
-  { value: "typescript", label: "TypeScript" },
+  { value: "excel", label: "Excel" },
+  { value: "customer-support", label: "Customer Support" },
+  { value: "sales", label: "Sales" },
+  { value: "sql", label: "SQL" },
+  { value: "figma", label: "Figma" },
+  { value: "bookkeeping", label: "Bookkeeping" },
+  { value: "recruitment", label: "Recruitment" },
   { value: "react", label: "React" },
-  { value: "python", label: "Python" },
   { value: "nodejs", label: "Node.js" },
-  { value: "aws", label: "AWS" },
-  { value: "kubernetes", label: "Kubernetes" },
-  { value: "postgresql", label: "PostgreSQL" },
-  { value: "graphql", label: "GraphQL" },
-  { value: "rust", label: "Rust" },
-  { value: "go", label: "Go" },
-  { value: "machine-learning", label: "Machine Learning" },
-  { value: "system-design", label: "System Design" },
+  { value: "medical-coding", label: "Medical Coding" },
+  { value: "tableau", label: "Tableau" },
+  { value: "project-management", label: "Project Management" },
 ];
 
 export const estimatorTabs: Array<{ id: EstimatorTabId; label: string }> = [
-  { id: "predict", label: "Predict salary" },
-  { id: "compare", label: "Compare roles" },
+  { id: "predict", label: "Estimate salary" },
+  { id: "compare", label: "Compare by city" },
   { id: "trends", label: "Market trends" },
 ];
 
@@ -32,178 +40,175 @@ export const estimatorFields: EstimatorField[] = [
     id: "title",
     label: "Job title",
     options: [
+      { value: "customer-service-representative", label: "Customer Service Representative" },
+      { value: "software-engineer", label: "Software Engineer" },
       { value: "senior-software-engineer", label: "Senior Software Engineer" },
-      { value: "staff-engineer", label: "Staff Engineer" },
-      { value: "engineering-manager", label: "Engineering Manager" },
       { value: "product-manager", label: "Product Manager" },
-      { value: "data-scientist", label: "Data Scientist" },
-      { value: "ml-engineer", label: "ML Engineer" },
-      { value: "frontend-engineer", label: "Frontend Engineer" },
-      { value: "backend-engineer", label: "Backend Engineer" },
-      { value: "platform-engineer", label: "Platform Engineer" },
-      { value: "product-designer", label: "Product Designer" },
+      { value: "data-analyst", label: "Data Analyst" },
+      { value: "graphic-designer", label: "Graphic Designer" },
+      { value: "accountant", label: "Accountant" },
+      { value: "hr-specialist", label: "HR Specialist" },
+      { value: "registered-nurse", label: "Registered Nurse" },
+      { value: "virtual-assistant", label: "Virtual Assistant" },
     ],
   },
   {
     id: "experience",
-    label: "Experience",
+    label: "Experience level",
     options: [
-      { value: "1-2", label: "1-2 years" },
-      { value: "3-4", label: "3-4 years" },
-      { value: "5-7", label: "5-7 years" },
-      { value: "8-10", label: "8-10 years" },
-      { value: "10-plus", label: "10+ years" },
+      { value: "fresh-grad", label: "Fresh Grad (0-1 years)" },
+      { value: "junior", label: "Junior (1-3 years)" },
+      { value: "mid", label: "Mid (3-5 years)" },
+      { value: "senior", label: "Senior (5-8 years)" },
+      { value: "lead", label: "Lead (8+ years)" },
     ],
   },
   {
     id: "location",
     label: "Location",
     options: [
-      { value: "san-francisco", label: "San Francisco, CA" },
-      { value: "new-york", label: "New York, NY" },
-      { value: "seattle", label: "Seattle, WA" },
-      { value: "austin", label: "Austin, TX" },
-      { value: "remote-us", label: "Remote (US)" },
-      { value: "london", label: "London, UK" },
-      { value: "berlin", label: "Berlin, DE" },
-      { value: "singapore", label: "Singapore" },
+      { value: "metro-manila", label: "NCR / Metro Manila" },
+      { value: "cebu", label: "Cebu" },
+      { value: "davao", label: "Davao" },
+      { value: "other-ph", label: "Other Philippine region" },
     ],
   },
   {
     id: "industry",
     label: "Industry",
     options: [
-      { value: "faang", label: "Big Tech (FAANG+)" },
-      { value: "series-b-d", label: "Series B-D Startup" },
-      { value: "early-startup", label: "Early-stage Startup" },
-      { value: "fintech", label: "Finance / Fintech" },
-      { value: "healthcare", label: "Healthcare / Biotech" },
-      { value: "enterprise-saas", label: "Enterprise SaaS" },
-      { value: "public-sector", label: "Government / Non-profit" },
+      { value: "bpo", label: "BPO" },
+      { value: "tech", label: "Tech" },
+      { value: "finance", label: "Finance" },
+      { value: "government", label: "Government" },
+      { value: "healthcare", label: "Healthcare" },
+      { value: "ecommerce", label: "E-commerce" },
+      { value: "other", label: "Others" },
     ],
   },
   {
-    id: "education",
-    label: "Education",
+    id: "workSetup",
+    label: "Work setup",
     options: [
-      { value: "self-taught", label: "No degree / Self-taught" },
-      { value: "bootcamp", label: "Bootcamp" },
-      { value: "bs-cs", label: "B.S. Computer Science" },
-      { value: "ms-cs", label: "M.S. Computer Science" },
-      { value: "phd", label: "PhD" },
-      { value: "mba", label: "MBA" },
+      { value: "onsite", label: "Onsite" },
+      { value: "hybrid", label: "Hybrid" },
+      { value: "remote-ph", label: "Remote (PH-based)" },
+      { value: "remote-intl", label: "Remote (International client)" },
     ],
   },
   {
-    id: "companySize",
-    label: "Company size",
+    id: "companyType",
+    label: "Company type",
     options: [
-      { value: "1-10", label: "1-10 people" },
-      { value: "11-50", label: "11-50 people" },
-      { value: "51-200", label: "51-200 people" },
-      { value: "201-1000", label: "201-1,000 people" },
-      { value: "1001-5000", label: "1,001-5,000 people" },
-      { value: "5000-plus", label: "5,000+ people" },
+      { value: "local-sme", label: "Local SME" },
+      { value: "mnc", label: "Multinational (MNC)" },
+      { value: "startup", label: "Startup" },
     ],
   },
 ];
 
 export const salarySignals = [
-  { value: "124,890", label: "salary data points indexed" },
-  { value: "$142K", label: "average senior engineer in the US" },
-  { value: "92%", label: "prediction confidence on validated roles" },
-  { value: "38", label: "countries in the benchmark graph" },
-  { value: "$210K", label: "median staff engineer in New York" },
-  { value: "+8.3%", label: "YoY growth for ML compensation bands" },
+  { value: "10,000+", label: "sample salary data points reviewed" },
+  { value: "13th month", label: "included in yearly estimate logic" },
+  { value: "NCR, Cebu, Davao", label: "regional market slices in the model" },
+  { value: "92%", label: "confidence on common benchmark patterns" },
+  { value: "Remote Intl", label: "separate from PH-local remote compensation" },
+  { value: "Updated Apr 2026", label: "trust signal shown in the result" },
 ];
 
 export const defaultFormState: SalaryFormState = {
-  title: "senior-software-engineer",
-  experience: "5-7",
-  location: "san-francisco",
-  industry: "series-b-d",
-  education: "bs-cs",
-  companySize: "201-1000",
-  skills: ["typescript", "react", "nodejs", "postgresql"],
+  title: "software-engineer",
+  experience: "mid",
+  location: "metro-manila",
+  industry: "tech",
+  workSetup: "hybrid",
+  companyType: "mnc",
+  skills: ["react", "nodejs", "sql"],
 };
 
 const roleProfiles: Record<string, RoleProfile> = {
-  "senior-software-engineer": { title: "Senior Software Engineer", baseSalary: 154000, benchmarkRange: [142000, 186000] },
-  "staff-engineer": { title: "Staff Engineer", baseSalary: 192000, benchmarkRange: [178000, 240000] },
-  "engineering-manager": { title: "Engineering Manager", baseSalary: 181000, benchmarkRange: [168000, 225000] },
-  "product-manager": { title: "Product Manager", baseSalary: 165000, benchmarkRange: [149000, 202000] },
-  "data-scientist": { title: "Data Scientist", baseSalary: 161000, benchmarkRange: [145000, 198000] },
-  "ml-engineer": { title: "ML Engineer", baseSalary: 176000, benchmarkRange: [162000, 218000] },
-  "frontend-engineer": { title: "Frontend Engineer", baseSalary: 149000, benchmarkRange: [136000, 181000] },
-  "backend-engineer": { title: "Backend Engineer", baseSalary: 156000, benchmarkRange: [143000, 190000] },
-  "platform-engineer": { title: "Platform Engineer", baseSalary: 171000, benchmarkRange: [156000, 208000] },
-  "product-designer": { title: "Product Designer", baseSalary: 143000, benchmarkRange: [129000, 176000] },
+  "customer-service-representative": { title: "Customer Service Representative", baseSalary: 24000 },
+  "software-engineer": { title: "Software Engineer", baseSalary: 50000 },
+  "senior-software-engineer": { title: "Senior Software Engineer", baseSalary: 95000 },
+  "product-manager": { title: "Product Manager", baseSalary: 80000 },
+  "data-analyst": { title: "Data Analyst", baseSalary: 45000 },
+  "graphic-designer": { title: "Graphic Designer", baseSalary: 32000 },
+  accountant: { title: "Accountant", baseSalary: 38000 },
+  "hr-specialist": { title: "HR Specialist", baseSalary: 34000 },
+  "registered-nurse": { title: "Registered Nurse", baseSalary: 30000 },
+  "virtual-assistant": { title: "Virtual Assistant", baseSalary: 35000 },
 };
 
 const experienceModifiers: Record<string, number> = {
-  "1-2": -34000,
-  "3-4": -18000,
-  "5-7": 0,
-  "8-10": 22000,
-  "10-plus": 36000,
+  "fresh-grad": -12000,
+  junior: -5000,
+  mid: 0,
+  senior: 18000,
+  lead: 35000,
 };
 
 const locationModifiers: Record<string, number> = {
-  "san-francisco": 24000,
-  "new-york": 18000,
-  seattle: 12000,
-  austin: 4000,
-  "remote-us": 9000,
-  london: -12000,
-  berlin: -26000,
-  singapore: -9000,
+  "metro-manila": 8000,
+  cebu: 2500,
+  davao: 0,
+  "other-ph": -4500,
 };
 
 const industryModifiers: Record<string, number> = {
-  faang: 26000,
-  "series-b-d": 12000,
-  "early-startup": -8000,
-  fintech: 15000,
-  healthcare: 5000,
-  "enterprise-saas": 7000,
-  "public-sector": -18000,
+  bpo: -6000,
+  tech: 12000,
+  finance: 9000,
+  government: -2000,
+  healthcare: 3000,
+  ecommerce: 6000,
+  other: 0,
 };
 
-const educationModifiers: Record<string, number> = {
-  "self-taught": -4000,
-  bootcamp: -2000,
-  "bs-cs": 0,
-  "ms-cs": 4500,
-  phd: 9000,
-  mba: 6500,
+const workSetupModifiers: Record<string, number> = {
+  onsite: 0,
+  hybrid: 3000,
+  "remote-ph": 7000,
+  "remote-intl": 38000,
 };
 
-const companySizeModifiers: Record<string, number> = {
-  "1-10": -18000,
-  "11-50": -11000,
-  "51-200": -3000,
-  "201-1000": 5000,
-  "1001-5000": 9000,
-  "5000-plus": 14000,
+const companyTypeModifiers: Record<string, number> = {
+  "local-sme": -4000,
+  mnc: 12000,
+  startup: 5000,
+};
+
+const regionalBenchmarks: Record<string, number> = {
+  "metro-manila": 1,
+  cebu: 0.92,
+  davao: 0.88,
+  "other-ph": 0.84,
 };
 
 const peerRoleSets: Record<string, PeerRole[]> = {
+  "software-engineer": [
+    { title: "Software Engineer", company: "GCash · NCR / Hybrid", compensation: "PHP 45,000 - PHP 70,000 / month" },
+    { title: "Backend Engineer", company: "Maya · NCR / Hybrid", compensation: "PHP 55,000 - PHP 85,000 / month" },
+    { title: "Remote Full-Stack Engineer", company: "Intl client · Remote", compensation: "PHP 95,000 - PHP 140,000 / month" },
+  ],
   "senior-software-engineer": [
-    { title: "Senior Software Engineer", company: "Stripe · San Francisco", compensation: "$165K - $195K" },
-    { title: "Senior Full-Stack Engineer", company: "Linear · Remote (US)", compensation: "$155K - $185K" },
-    { title: "Software Engineer L5", company: "Google · Mountain View", compensation: "$178K - $220K" },
+    { title: "Senior Software Engineer", company: "Globe · NCR / Hybrid", compensation: "PHP 90,000 - PHP 130,000 / month" },
+    { title: "Lead Backend Engineer", company: "Sprout Solutions · NCR", compensation: "PHP 100,000 - PHP 145,000 / month" },
+    { title: "Senior Remote Engineer", company: "US client · Remote", compensation: "PHP 150,000 - PHP 220,000 / month" },
   ],
-  "staff-engineer": [
-    { title: "Staff Engineer", company: "Figma · New York", compensation: "$210K - $255K" },
-    { title: "Principal Platform Engineer", company: "Datadog · Remote (US)", compensation: "$205K - $248K" },
-    { title: "Staff Software Engineer", company: "Airbnb · San Francisco", compensation: "$215K - $268K" },
-  ],
-  "engineering-manager": [
-    { title: "Engineering Manager", company: "Notion · San Francisco", compensation: "$190K - $230K" },
-    { title: "Senior Engineering Manager", company: "Canva · Remote", compensation: "$205K - $248K" },
-    { title: "Product Engineering Lead", company: "Ramp · New York", compensation: "$198K - $240K" },
+  "customer-service-representative": [
+    { title: "CSR", company: "Concentrix · Cebu", compensation: "PHP 20,000 - PHP 29,000 / month" },
+    { title: "Customer Experience Associate", company: "TaskUs · NCR", compensation: "PHP 23,000 - PHP 32,000 / month" },
+    { title: "Technical Support Rep", company: "Foundever · Davao", compensation: "PHP 24,000 - PHP 34,000 / month" },
   ],
 };
+
+const defaultSources: SourceAttribution[] = [
+  { label: "Philippine Statistics Authority", detail: "Reliable baseline labor and wage context" },
+  { label: "Department of Labor and Employment", detail: "Regulatory context including regional wage rules" },
+  { label: "JobStreet Philippines", detail: "High-volume local job market signal" },
+  { label: "Glassdoor and PayScale", detail: "Self-reported compensation signal with normalization" },
+  { label: "Michael Page Philippines", detail: "High-quality compensation benchmarking reports" },
+];
 
 function roundToNearestHundred(value: number) {
   return Math.round(value / 100) * 100;
@@ -215,15 +220,15 @@ function formatDelta(value: number) {
   }
 
   const prefix = value > 0 ? "+" : "";
-  return `${prefix}${Math.round((value / 1000) * 1.7)}%`;
+  return `${prefix}${Math.round((value / 1000) * 1.6)}%`;
 }
 
 function getToneFromImpact(value: number) {
-  if (value >= 15000) {
+  if (value >= 12000) {
     return "primary" as const;
   }
 
-  if (value >= 5000 || value <= -5000) {
+  if (value >= 4000) {
     return "accent" as const;
   }
 
@@ -235,65 +240,99 @@ function getFieldLabel(fieldId: EstimatorField["id"], value: string) {
   return field?.options.find((option) => option.value === value)?.label ?? value;
 }
 
+function formatPesoCompact(value: number) {
+  return new Intl.NumberFormat("en-PH", {
+    style: "currency",
+    currency: "PHP",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
+function getBenefits(form: SalaryFormState): BenefitInsight[] {
+  const benefits: BenefitInsight[] = [
+    { label: "13th month pay", detail: "Mandatory and included in the yearly estimate." },
+    { label: "HMO", detail: form.companyType === "mnc" ? "Common for MNC offers and larger private employers." : "Common but less consistent for smaller employers." },
+  ];
+
+  if (form.industry === "bpo") {
+    benefits.push({ label: "Night differential", detail: "Often relevant for rotating shifts and graveyard schedules." });
+  } else if (form.workSetup === "remote-ph" || form.workSetup === "remote-intl") {
+    benefits.push({ label: "Internet allowance", detail: "Frequently bundled into remote-friendly compensation packages." });
+  } else {
+    benefits.push({ label: "Rice or transport allowance", detail: "Still common in local compensation packages depending on company policy." });
+  }
+
+  return benefits;
+}
+
 export function getSkillOptions() {
   return skillOptions;
 }
 
 export function getActiveRoleTitle(value: string) {
-  return roleProfiles[value]?.title ?? "Compensation benchmark";
-}
-
-export function formatUsd(value: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
+  return roleProfiles[value]?.title ?? "Salary benchmark";
 }
 
 export function createSalaryEstimate(form: SalaryFormState): SalaryEstimate {
-  const role = roleProfiles[form.title] ?? roleProfiles["senior-software-engineer"];
-  const skillImpact = Math.max(0, form.skills.length - 2) * 3200;
-  const educationImpact = educationModifiers[form.education] ?? 0;
-  const companyImpact = companySizeModifiers[form.companySize] ?? 0;
+  const role = roleProfiles[form.title] ?? roleProfiles["software-engineer"];
+  const skillImpact = Math.max(0, form.skills.length - 1) * 1500;
   const experienceImpact = experienceModifiers[form.experience] ?? 0;
   const locationImpact = locationModifiers[form.location] ?? 0;
   const industryImpact = industryModifiers[form.industry] ?? 0;
+  const workSetupImpact = workSetupModifiers[form.workSetup] ?? 0;
+  const companyTypeImpact = companyTypeModifiers[form.companyType] ?? 0;
 
   const baseSalary = roundToNearestHundred(
-    role.baseSalary +
-      skillImpact +
-      educationImpact +
-      companyImpact +
-      experienceImpact +
-      locationImpact +
-      industryImpact,
+    role.baseSalary + skillImpact + experienceImpact + locationImpact + industryImpact + workSetupImpact + companyTypeImpact,
   );
+  const lowerBound = roundToNearestHundred(baseSalary * 0.87);
+  const upperBound = roundToNearestHundred(baseSalary * 1.14);
+  const annualizedBase = baseSalary * 12;
+  const thirteenthMonthPay = baseSalary;
+  const annualBonus =
+    form.companyType === "mnc"
+      ? roundToNearestHundred(baseSalary * 1.2)
+      : form.industry === "finance"
+        ? roundToNearestHundred(baseSalary)
+        : roundToNearestHundred(baseSalary * 0.45);
+  const monthlyAllowances =
+    form.industry === "bpo"
+      ? 2500
+      : form.workSetup === "remote-ph" || form.workSetup === "remote-intl"
+        ? 3500
+        : 2000;
 
-  const lowerBound = roundToNearestHundred(baseSalary * 0.89);
-  const upperBound = roundToNearestHundred(baseSalary * 1.13);
-  const bonus = roundToNearestHundred(baseSalary * 0.11);
-  const equity = roundToNearestHundred(baseSalary * (companyImpact >= 9000 ? 0.28 : 0.18));
-  const confidence = Math.min(96, 78 + form.skills.length + (experienceImpact > 0 ? 4 : 2));
-  const peerRoles = peerRoleSets[form.title] ?? peerRoleSets["senior-software-engineer"];
+  const annualizedWithThirteenthMonth = annualizedBase + thirteenthMonthPay;
+  const annualizedTotal = annualizedWithThirteenthMonth + annualBonus + monthlyAllowances * 12;
+  const confidence = Math.min(95, 80 + form.skills.length + (form.workSetup === "remote-intl" ? 2 : 0));
+  const locationBenchmark = regionalBenchmarks[form.location] ?? 1;
+  const regionalComparisonBase = roundToNearestHundred(baseSalary / locationBenchmark);
+  const comparisonLabel =
+    baseSalary >= regionalComparisonBase + 5000 ? "Above the typical local midpoint" : "Within the expected local range";
+  const regionalComparison =
+    form.location === "metro-manila"
+      ? "Metro Manila remains the highest-paying local benchmark for most private-sector roles."
+      : `${getFieldLabel("location", form.location)} usually benchmarks below Metro Manila for similar roles.`;
+  const peerRoles = peerRoleSets[form.title] ?? peerRoleSets["software-engineer"];
 
   const drivers = [
     { label: `Location (${getFieldLabel("location", form.location)})`, value: locationImpact },
     { label: `Experience (${getFieldLabel("experience", form.experience)})`, value: experienceImpact },
-    { label: `Skills stack (${form.skills.length} selected)`, value: skillImpact },
-    { label: `Company size (${getFieldLabel("companySize", form.companySize)})`, value: companyImpact },
+    { label: `Work setup (${getFieldLabel("workSetup", form.workSetup)})`, value: workSetupImpact },
+    { label: `Company type (${getFieldLabel("companyType", form.companyType)})`, value: companyTypeImpact },
     { label: `Industry (${getFieldLabel("industry", form.industry)})`, value: industryImpact },
   ].map((driver) => ({
     label: driver.label,
     impactLabel: formatDelta(driver.value),
-    strength: Math.max(18, Math.min(95, Math.round(Math.abs(driver.value) / 350))),
+    strength: Math.max(16, Math.min(95, Math.round(Math.abs(driver.value) / 250))),
     tone: getToneFromImpact(Math.abs(driver.value)),
   }));
 
   const compensation = [
-    { label: "Base salary", amount: formatUsd(baseSalary), deltaLabel: "+8%", direction: "up" as const },
-    { label: "Annual bonus", amount: formatUsd(bonus), deltaLabel: "+5%", direction: "up" as const },
-    { label: "Equity (estimated)", amount: formatUsd(equity), deltaLabel: companyImpact >= 9000 ? "+11%" : "-2%", direction: companyImpact >= 9000 ? "up" as const : "down" as const },
+    { label: "Monthly salary (gross)", amount: formatPesoCompact(baseSalary), detail: "Primary market salary estimate shown monthly." },
+    { label: "13th month pay", amount: formatPesoCompact(thirteenthMonthPay), detail: "Mandatory Philippine 13th month equivalent to one month of base pay." },
+    { label: "Estimated annual bonus", amount: formatPesoCompact(annualBonus), detail: "Varies more by company type and industry." },
+    { label: "Monthly allowances", amount: formatPesoCompact(monthlyAllowances), detail: "Transport, rice, internet, or shift-related allowances." },
   ];
 
   return {
@@ -304,10 +343,21 @@ export function createSalaryEstimate(form: SalaryFormState): SalaryEstimate {
     medianSalary: baseSalary,
     percentile25: lowerBound,
     percentile75: upperBound,
-    totalCompensation: baseSalary + bonus + equity,
-    summary: `${role.title} in ${getFieldLabel("location", form.location)} with ${getFieldLabel("experience", form.experience).toLowerCase()}`,
+    annualizedBase,
+    annualizedWithThirteenthMonth,
+    annualizedTotal,
+    thirteenthMonthPay,
+    annualBonus,
+    monthlyAllowances,
+    dataPoints: 10324,
+    updatedAt: "April 2026",
+    comparisonLabel,
+    regionalComparison,
+    summary: `${role.title} in ${getFieldLabel("location", form.location)} · ${getFieldLabel("workSetup", form.workSetup)}`,
     drivers,
     compensation,
+    benefits: getBenefits(form),
+    sources: defaultSources,
     peerRoles,
   };
 }

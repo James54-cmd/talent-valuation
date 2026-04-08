@@ -28,96 +28,92 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
         <PageContainer>
           <Card className="rounded-[2rem] border-border/60 bg-panel shadow-soft">
             <CardContent className="space-y-8 p-6 sm:p-8 lg:p-10">
-            <SectionHeading
-              eyebrow="01 / Workbench"
-              title="Tell the model what kind of market you are in."
-              description="Each input now lives in feature-owned state instead of being hard-coded inside a giant page component. That makes this easier to reason about and much easier to extend."
-            />
+              <SectionHeading
+                eyebrow="01 / Estimator"
+                title="Tell us how this role looks in the Philippine market."
+                description="The estimator now prioritizes the inputs Filipino professionals actually use in salary conversations: location, work setup, company type, and monthly compensation context."
+              />
 
-            <Tabs value={activeTab} onValueChange={(value) => onChangeTab(value as EstimatorTabId)}>
-              <TabsList className="h-auto flex-wrap rounded-full border border-border/60 bg-background p-1">
-              {tabs.map((tab) => (
-                <TabsTrigger
-                  key={tab.id}
-                  value={tab.id}
-                  className={cn(
-                    "rounded-full px-4 py-2 text-sm font-medium transition data-[state=active]:bg-foreground data-[state=active]:text-background",
-                    activeTab !== tab.id && "text-foreground/60 hover:text-foreground",
-                  )}
-                >
-                  {tab.label}
-                </TabsTrigger>
-              ))}
-              </TabsList>
-            </Tabs>
-
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {fields.map((field) => (
-                <Card key={field.id} className="rounded-[1.5rem] border-border/60 bg-background shadow-none transition hover:border-primary/20">
-                  <CardContent className="space-y-3 px-4 py-4">
-                    <span className="block text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/45">{field.label}</span>
-                    <Select value={form[field.id]} onValueChange={(value) => onChangeField(field.id, value)}>
-                      <SelectTrigger className="h-auto border-0 bg-transparent px-0 py-0 text-base font-medium shadow-none ring-0 focus:ring-0 focus:ring-offset-0">
-                        <SelectValue placeholder={field.label} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {field.options.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            <Card className="rounded-[1.5rem] border-border/60 bg-background shadow-none">
-              <CardContent className="p-5">
-              <div className="space-y-2">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/45">
-                  Primary skills
-                </p>
-                <p className="text-sm leading-6 text-foreground/65">
-                  Skills now behave like real state, not static decorative chips.
-                </p>
-              </div>
-
-              <div className="mt-4 flex flex-wrap gap-2">
-                {skillOptions.map((skill) => {
-                  const isSelected = form.skills.includes(skill.value);
-
-                  return (
-                    <Button
-                      key={skill.value}
-                      onClick={() => onToggleSkill(skill.value)}
-                      type="button"
-                      variant={isSelected ? "default" : "outline"}
-                      size="sm"
+              <Tabs value={activeTab} onValueChange={(value) => onChangeTab(value as EstimatorTabId)}>
+                <TabsList className="h-auto flex-wrap rounded-full border border-border/60 bg-background p-1">
+                  {tabs.map((tab) => (
+                    <TabsTrigger
+                      key={tab.id}
+                      value={tab.id}
                       className={cn(
-                        "rounded-full transition",
-                        isSelected
-                          ? "border-foreground bg-foreground text-background hover:bg-foreground/90"
-                          : "border-border bg-panel text-foreground/70 hover:border-primary/25 hover:bg-panel hover:text-foreground",
+                        "rounded-full px-4 py-2 text-sm font-medium transition data-[state=active]:bg-foreground data-[state=active]:text-background",
+                        activeTab !== tab.id && "text-foreground/60 hover:text-foreground",
                       )}
                     >
-                      {skill.label}
-                    </Button>
-                  );
-                })}
-              </div>
-              </CardContent>
-            </Card>
+                      {tab.label}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
 
-            <Button
-              onClick={onCalculate}
-              size="lg"
-              className="w-fit rounded-full px-6 shadow-soft transition hover:-translate-y-0.5"
-            >
-              Calculate salary
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {fields.map((field) => (
+                  <Card key={field.id} className="rounded-[1.5rem] border-border/60 bg-background shadow-none transition hover:border-primary/20">
+                    <CardContent className="space-y-3 px-4 py-4">
+                      <span className="block text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/45">{field.label}</span>
+                      <Select value={form[field.id]} onValueChange={(value) => onChangeField(field.id, value)}>
+                        <SelectTrigger className="h-auto border-0 bg-transparent px-0 py-0 text-base font-medium shadow-none ring-0 focus:ring-0 focus:ring-offset-0">
+                          <SelectValue placeholder={field.label} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {field.options.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              <Card className="rounded-[1.5rem] border-border/60 bg-background shadow-none">
+                <CardContent className="p-5">
+                  <div className="space-y-2">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/45">
+                      Tools or specialization
+                    </p>
+                    <p className="text-sm leading-6 text-foreground/65">
+                      Optional, but useful when you want a more realistic benchmark than job title alone.
+                    </p>
+                  </div>
+
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {skillOptions.map((skill) => {
+                      const isSelected = form.skills.includes(skill.value);
+
+                      return (
+                        <Button
+                          key={skill.value}
+                          onClick={() => onToggleSkill(skill.value)}
+                          type="button"
+                          variant={isSelected ? "default" : "outline"}
+                          size="sm"
+                          className={cn(
+                            "rounded-full transition",
+                            isSelected
+                              ? "border-foreground bg-foreground text-background hover:bg-foreground/90"
+                              : "border-border bg-panel text-foreground/70 hover:border-primary/25 hover:bg-panel hover:text-foreground",
+                          )}
+                        >
+                          {skill.label}
+                        </Button>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Button onClick={onCalculate} size="lg" className="w-fit rounded-full px-6 shadow-soft transition hover:-translate-y-0.5">
+                Calculate my salary
+                <ArrowRight className="h-4 w-4" />
+              </Button>
             </CardContent>
           </Card>
         </PageContainer>

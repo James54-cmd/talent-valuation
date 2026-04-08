@@ -50,7 +50,7 @@ export function SalaryEstimatorPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <h1 className="sr-only">Talent Valuation salary estimator</h1>
+      <h1 className="sr-only">SalarioPH salary estimator for the Philippines</h1>
       <SiteHeader />
       <MarketStatsStrip />
       <HeroPanel estimate={estimate} summary={summary} onOpenWorkbench={scrollToWorkbench} onShowPreview={revealResults} />
