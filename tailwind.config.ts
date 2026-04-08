@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -24,6 +25,7 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        panel: "hsl(var(--panel))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -52,12 +54,6 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        ink: "hsl(var(--ink))",
-        paper: "hsl(var(--paper))",
-        mid: "hsl(var(--mid))",
-        "accent-muted": "hsl(var(--accent-muted))",
-        surface: "hsl(var(--surface))",
-        "tag-bg": "hsl(var(--tag-bg))",
         gold: "hsl(var(--gold))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
@@ -77,7 +73,7 @@ export default {
         pill: "var(--radius-pill)",
       },
       boxShadow: {
-        card: "var(--shadow-card)",
+        soft: "var(--shadow-soft)",
       },
       keyframes: {
         "accordion-down": {
@@ -95,5 +91,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } satisfies Config;

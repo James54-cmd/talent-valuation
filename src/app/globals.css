@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@0;1&family=Bricolage+Grotesque:wght@300;400;500;600;700&display=swap");
+@import "@/styles/tokens.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+    background-image:
+      radial-gradient(circle at top left, rgba(188, 108, 60, 0.12), transparent 28%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 24%);
+    min-height: 100vh;
+  }
+
+  a,
+  button,
+  select {
+    outline: none;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.16);
+  }
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-ticker {
+  animation: ticker 26s linear infinite;
+}
+
+.animate-rise {
+  animation: rise 0.45s ease-out forwards;
+}
