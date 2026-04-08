@@ -69,6 +69,12 @@ type RequestedDimensions = {
   workSetup: DimensionRow;
 };
 
+type RoleRow = {
+  id: string;
+  slug: string;
+  title: string;
+};
+
 function roundToNearestHundred(value: number) {
   return Math.round(value / 100) * 100;
 }
@@ -171,19 +177,19 @@ async function getRequestedDimensions(client: Awaited<ReturnType<typeof createCl
   };
 }
 
-async function getRole(client: Awaited<ReturnType<typeof createClient>>, slug: string) {
+async function getRole(client: Awaited<ReturnType<typeof createClient>>, slug: string): Promise<RoleRow> {
   const { data, error } = await client.from("benchmark_roles").select("id, slug, title").eq("slug", slug).single();
 
   if (error || !data) {
     throw new Error(`Missing benchmark role for ${slug}`);
   }
 
-  return data;
+  return data as RoleRow;
 }
 
-async function getSkillIds(client: Awaited<ReturnType<typeof createClient>>, skills: string[]) {
+async function getSkillIds(client: Awaited<ReturnType<typeof createClient>>, skills: string[]): Promise<string[]> {
   if (skills.length === 0) {
-    return [] as string[];
+    return [];
   }
 
   const { data, error } = await client
@@ -193,10 +199,10 @@ async function getSkillIds(client: Awaited<ReturnType<typeof createClient>>, ski
     .in("slug", skills);
 
   if (error || !data) {
-    return [] as string[];
+    return [];
   }
 
-  return data.map((item) => item.id);
+  return (data as Array<{ id: string }>).map((item) => item.id);
 }
 
 function buildBenchmarkSelect() {
