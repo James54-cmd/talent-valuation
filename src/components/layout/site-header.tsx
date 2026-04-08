@@ -1,5 +1,6 @@
 import { appConfig } from "@/lib/constants/app-config";
 import { PageContainer } from "@/components/layout/page-container";
+import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
   return (
@@ -27,12 +28,9 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <a
-          href="#valuation-workbench"
-          className="inline-flex items-center rounded-full border border-foreground/10 bg-panel px-4 py-2 text-sm font-medium text-foreground transition hover:border-primary/30 hover:text-primary"
-        >
-          Open workbench
-        </a>
+        <Button asChild variant="outline" className="rounded-full border-foreground/10 bg-panel text-foreground hover:border-primary/30 hover:bg-panel hover:text-primary">
+          <a href="#valuation-workbench">Open workbench</a>
+        </Button>
       </PageContainer>
     </header>
   );
