@@ -6,6 +6,7 @@ import { CityComparisonResults } from "@/features/salary-estimator/components/ci
 import { EstimatorForm } from "@/features/salary-estimator/components/estimator-form";
 import { EstimatorResults } from "@/features/salary-estimator/components/estimator-results";
 import { HeroPanel } from "@/features/salary-estimator/components/hero-panel";
+import { HowItWorksSection } from "@/features/salary-estimator/components/how-it-works-section";
 import { MarketStatsStrip } from "@/features/salary-estimator/components/market-stats-strip";
 import { getActiveRoleTitle } from "@/features/salary-estimator/lib/salary-estimator-data";
 import { useSalaryEstimator } from "@/features/salary-estimator/hooks/use-salary-estimator";
@@ -58,6 +59,7 @@ export function SalaryEstimatorPage() {
       <SiteHeader />
       <MarketStatsStrip />
       <HeroPanel estimate={estimate} summary={summary} onOpenWorkbench={scrollToWorkbench} onShowPreview={revealResults} />
+      <HowItWorksSection />
       <EstimatorForm
         ref={workbenchRef}
         activeTab={activeTab}

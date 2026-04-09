@@ -25,7 +25,7 @@ export function useSalaryEstimator() {
   const comparisonRoleSlugs = getAvailableComparisonRoles();
   const visibleFields =
     activeTab === "compare" ? estimatorFields.filter((field) => field.id !== "location") : estimatorFields;
-  const visibleSkillOptions = activeTab === "compare" ? [] : getSkillOptions();
+  const visibleSkillOptions = activeTab === "compare" ? [] : getSkillOptions(form.title);
 
   function updateTab(tabId: EstimatorTabId) {
     setActiveTab(tabId);
@@ -43,7 +43,14 @@ export function useSalaryEstimator() {
   function updateField<Key extends keyof SalaryFormState>(field: Key, value: SalaryFormState[Key]) {
     setForm((current) => ({
       ...current,
-      [field]: value,
+      [field]:
+        field === "title"
+          ? (value as SalaryFormState[Key])
+          : value,
+      skills:
+        field === "title"
+          ? current.skills.filter((skill) => getSkillOptions(String(value)).some((option) => option.value === skill))
+          : current.skills,
     }));
   }
 

@@ -50,6 +50,19 @@ export const skillOptions: FieldOption[] = [
   { value: "project-management", label: "Project Management" },
 ];
 
+const roleSkillOptionMap: Record<string, string[]> = {
+  "software-engineer": ["react", "nodejs", "sql", "project-management"],
+  "senior-software-engineer": ["react", "nodejs", "sql", "project-management"],
+  "customer-service-representative": ["customer-support", "sales", "excel"],
+  "product-manager": ["project-management", "sql", "sales"],
+  "data-analyst": ["sql", "tableau", "excel"],
+  "graphic-designer": ["figma", "project-management"],
+  accountant: ["excel", "bookkeeping", "sql"],
+  "hr-specialist": ["recruitment", "excel", "project-management"],
+  "registered-nurse": ["medical-coding", "excel"],
+  "virtual-assistant": ["customer-support", "excel", "project-management", "sales"],
+};
+
 export const estimatorTabs: Array<{ id: EstimatorTabId; label: string }> = [
   { id: "predict", label: "Estimate salary" },
   { id: "compare", label: "Compare by city" },
@@ -352,8 +365,14 @@ export function getFieldLabel(fieldId: EstimatorField["id"], value: string) {
   return field?.options.find((option) => option.value === value)?.label ?? value;
 }
 
-export function getSkillOptions() {
-  return skillOptions;
+export function getSkillOptions(roleSlug?: string) {
+  const selectedSkillValues = roleSlug ? roleSkillOptionMap[roleSlug] : undefined;
+
+  if (!selectedSkillValues) {
+    return skillOptions;
+  }
+
+  return skillOptions.filter((skill) => selectedSkillValues.includes(skill.value));
 }
 
 export function getActiveRoleTitle(value: string) {

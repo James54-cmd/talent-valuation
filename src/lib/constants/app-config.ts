@@ -4,6 +4,6 @@ export const appConfig = {
   navigation: [
     { label: "Salary estimator", href: "#valuation-workbench" },
     { label: "PH benchmarks", href: "#valuation-workbench" },
-    { label: "How it works", href: "#valuation-workbench" },
+    { label: "How it works", href: "#how-it-works" },
   ],
 } as const;
