@@ -15,7 +15,7 @@ type EstimatorResultsProps = {
 
 export function EstimatorResults({ estimate }: EstimatorResultsProps) {
   return (
-    <section className="animate-rise py-16 sm:py-20">
+    <section className="animate-rise py-12 sm:py-16 lg:py-20">
       <PageContainer className="space-y-10">
         <ScrollReveal>
           <SectionHeading
@@ -30,11 +30,11 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
             <Card className="rounded-[2rem] border-border/60 bg-panel shadow-soft">
             <CardContent className="p-6 sm:p-8">
               <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
-                <div>
+                <div className="min-w-0">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/45">
                     Estimated monthly salary range
                   </p>
-                  <p className="mt-4 font-display text-5xl tracking-[-0.05em] text-foreground sm:text-6xl">
+                  <p className="mt-4 font-display text-4xl leading-none tracking-[-0.05em] text-foreground sm:text-5xl lg:text-6xl">
                     {formatCurrency(estimate.lowerBound)} - {formatCurrency(estimate.upperBound)}
                   </p>
                   <p className="mt-3 text-sm text-foreground/65">{estimate.summary} · gross per month before taxes and deductions</p>
@@ -82,7 +82,7 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
                 ))}
               </div>
 
-              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              <div className="mt-8 grid gap-3 lg:grid-cols-2">
                 <Card className="rounded-[1.5rem] border-border/60 bg-background shadow-none">
                   <CardContent className="p-4">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-foreground/45">Annual gross with 13th month</p>
@@ -176,7 +176,7 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
             title="Comparable salary signals in the Philippine market."
             description="These ranges stay intentionally broad. A trustworthy estimator should guide your expectations, not pretend to know your exact offer."
           />
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {estimate.peerRoles.map((role) => (
               <Card
                 key={`${role.title}-${role.company}`}
@@ -191,7 +191,7 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
             ))}
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {estimate.benefits.map((benefit) => (
               <Card key={benefit.label} className="rounded-[1.5rem] border-border/60 bg-background shadow-none">
                 <CardContent className="p-5">

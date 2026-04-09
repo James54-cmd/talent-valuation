@@ -35,7 +35,7 @@ const methodologySignals = [
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="bg-secondary/55 py-16 sm:py-20">
+    <section id="how-it-works" className="bg-secondary/55 py-12 sm:py-16 lg:py-20">
       <PageContainer className="space-y-10">
         <ScrollReveal>
           <SectionHeading
@@ -50,8 +50,8 @@ export function HowItWorksSection() {
             <Card className="rounded-[2rem] border-border/60 bg-background shadow-soft">
             <CardContent className="space-y-5 p-6 sm:p-8">
               {methodologySteps.map((step, index) => (
-                <div key={step.title} className="grid gap-3 border-b border-border/60 pb-5 last:border-none last:pb-0 md:grid-cols-[58px_1fr]">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-gold/25 text-sm font-semibold text-primary">
+                <div key={step.title} className="grid gap-3 border-b border-border/60 pb-5 last:border-none last:pb-0 sm:grid-cols-[58px_1fr]">
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-gold/25 text-sm font-semibold text-primary sm:h-12 sm:w-12">
                     {index + 1}
                   </div>
                   <div>

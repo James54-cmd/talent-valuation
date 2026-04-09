@@ -21,7 +21,7 @@ function formatDelta(value: number) {
 
 export function CityComparisonResults({ result }: CityComparisonResultsProps) {
   return (
-    <section className="animate-rise py-16 sm:py-20">
+    <section className="animate-rise py-12 sm:py-16 lg:py-20">
       <PageContainer className="space-y-10">
         <ScrollReveal>
           <SectionHeading
@@ -56,7 +56,7 @@ export function CityComparisonResults({ result }: CityComparisonResultsProps) {
               <ScrollReveal key={row.locationSlug} delay={80 + index * 70} variant="scale">
                 <Card className="rounded-[1.5rem] border-border/60 bg-panel shadow-soft">
                 <CardContent className="space-y-4 p-5">
-                  <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <div>
                       <p className="text-sm font-semibold text-foreground">{row.locationLabel}</p>
                       <p className="mt-1 text-xs text-foreground/55">{row.sourceSummary}</p>
@@ -75,18 +75,18 @@ export function CityComparisonResults({ result }: CityComparisonResultsProps) {
                   </div>
 
                   <div className="grid gap-3 rounded-[1rem] bg-background p-4 text-sm">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-3">
                       <span className="text-foreground/60">Vs Metro Manila</span>
                       <span className="font-medium text-primary">{formatDelta(row.pesoDifferenceFromMetroManila)}</span>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-3">
                       <span className="text-foreground/60">Percent difference</span>
                       <span className="font-medium text-foreground">
                         {row.percentDifferenceFromMetroManila > 0 ? "+" : ""}
                         {row.percentDifferenceFromMetroManila}%
                       </span>
                     </div>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-3">
                       <span className="text-foreground/60">Sample signal</span>
                       <span className="font-medium text-foreground">{row.sampleSizeEstimate.toLocaleString("en-PH")}+</span>
                     </div>

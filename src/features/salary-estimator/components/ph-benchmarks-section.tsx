@@ -13,14 +13,14 @@ export function PHBenchmarksSection() {
   const summary = getBenchmarkCoverageSummary();
 
   return (
-    <section id="ph-benchmarks" className="border-y border-border/60 bg-foreground py-16 text-background sm:py-20">
+    <section id="ph-benchmarks" className="border-y border-border/60 bg-foreground py-12 text-background sm:py-16 lg:py-20">
       <PageContainer className="space-y-10">
         <ScrollReveal className="space-y-3">
           <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.28em] text-gold">
             PH Benchmarks
           </span>
           <div className="space-y-2">
-            <h2 className="font-display text-3xl tracking-[-0.04em] text-background sm:text-4xl">
+            <h2 className="font-display text-2xl tracking-[-0.04em] text-background sm:text-3xl lg:text-4xl">
               The local market reference behind the estimator.
             </h2>
             <p className="max-w-2xl text-sm leading-7 text-background/70 sm:text-base">
@@ -33,7 +33,7 @@ export function PHBenchmarksSection() {
           <ScrollReveal variant="left" delay={80}>
             <Card className="rounded-[2rem] border-white/10 bg-white/5 shadow-soft">
             <CardContent className="space-y-8 p-6 sm:p-8">
-              <div className="grid gap-4 sm:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 {[
                   { label: "Benchmarked roles", value: summary.roles.length, detail: "Roles with usable launch coverage" },
                   { label: "City coverage", value: summary.cities.length, detail: "Cities with publishable benchmark signal" },
@@ -47,7 +47,7 @@ export function PHBenchmarksSection() {
                 ))}
               </div>
 
-              <div className="grid gap-4 md:grid-cols-[1fr_0.9fr]">
+              <div className="grid gap-4 lg:grid-cols-[1fr_0.9fr]">
                 <div className="rounded-[1.5rem] border border-white/10 bg-black/10 px-5 py-5">
                   <p className="text-sm font-semibold text-background">Roles in benchmark coverage</p>
                   <div className="mt-3 flex flex-wrap gap-2">

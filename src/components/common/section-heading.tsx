@@ -11,11 +11,11 @@ export function SectionHeading({ eyebrow, title, description }: SectionHeadingPr
         {eyebrow}
       </span>
       <div className="space-y-2">
-        <h2 className="font-display text-3xl tracking-[-0.04em] text-foreground sm:text-4xl">
+        <h2 className="font-display text-2xl leading-tight tracking-[-0.04em] text-foreground sm:text-3xl lg:text-4xl">
           {title}
         </h2>
         {description ? (
-          <p className="max-w-2xl text-sm leading-7 text-foreground/70 sm:text-base">
+          <p className="max-w-2xl text-sm leading-7 text-foreground/70 sm:text-[15px] lg:text-base">
             {description}
           </p>
         ) : null}

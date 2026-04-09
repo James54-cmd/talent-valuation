@@ -27,7 +27,7 @@ type EstimatorFormProps = {
 export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
   ({ activeTab, calculationError, fields, form, isCalculating, onCalculate, onChangeTab, onChangeField, onToggleSkill, skillOptions, tabs }, ref) => {
     return (
-      <section ref={ref} id="valuation-workbench" className="bg-[linear-gradient(180deg,rgba(185,82,34,0.08),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.4),rgba(228,212,191,0.18))] py-16 sm:py-20">
+      <section ref={ref} id="valuation-workbench" className="bg-[linear-gradient(180deg,rgba(185,82,34,0.08),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.4),rgba(228,212,191,0.18))] py-12 sm:py-16 lg:py-20">
         <PageContainer>
           <Card className="rounded-[2rem] border-primary/10 bg-[rgba(255,250,245,0.82)] shadow-soft backdrop-blur-sm">
             <CardContent className="space-y-8 p-6 sm:p-8 lg:p-10">
@@ -45,7 +45,7 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
 
               <ScrollReveal delay={60}>
                 <Tabs value={activeTab} onValueChange={(value) => onChangeTab(value as EstimatorTabId)}>
-                <TabsList className="h-auto flex-wrap rounded-full border border-border/60 bg-background p-1">
+                <TabsList className="grid h-auto w-full grid-cols-1 gap-1 rounded-[1.25rem] border border-border/60 bg-background p-1 sm:inline-flex sm:w-auto sm:grid-cols-none sm:flex-wrap sm:rounded-full">
                   {tabs.map((tab) => (
                     <TabsTrigger
                       key={tab.id}
@@ -175,7 +175,7 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
                   onClick={onCalculate}
                   size="lg"
                   disabled={isCalculating}
-                  className="w-fit rounded-full px-6 shadow-soft transition hover:-translate-y-0.5 disabled:translate-y-0"
+                  className="w-full rounded-full px-6 shadow-soft transition hover:-translate-y-0.5 disabled:translate-y-0 sm:w-fit"
                 >
                   {isCalculating ? "Refreshing estimate..." : activeTab === "compare" ? "Compare by city" : "Show my salary estimate"}
                   <ArrowRight className="h-4 w-4" />
