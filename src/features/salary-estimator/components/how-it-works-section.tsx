@@ -34,7 +34,7 @@ const methodologySignals = [
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="py-16 sm:py-20">
+    <section id="how-it-works" className="bg-secondary/55 py-16 sm:py-20">
       <PageContainer className="space-y-10">
         <SectionHeading
           eyebrow="How It Works"
@@ -43,11 +43,11 @@ export function HowItWorksSection() {
         />
 
         <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-          <Card className="rounded-[2rem] border-border/60 bg-panel shadow-soft">
+          <Card className="rounded-[2rem] border-border/60 bg-background shadow-soft">
             <CardContent className="space-y-5 p-6 sm:p-8">
               {methodologySteps.map((step, index) => (
-                <div key={step.title} className="grid gap-3 border-b border-border/60 pb-5 last:border-none last:pb-0 md:grid-cols-[52px_1fr]">
-                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-sm font-semibold text-primary">
+                <div key={step.title} className="grid gap-3 border-b border-border/60 pb-5 last:border-none last:pb-0 md:grid-cols-[58px_1fr]">
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-gold/25 text-sm font-semibold text-primary">
                     {index + 1}
                   </div>
                   <div>
@@ -60,12 +60,12 @@ export function HowItWorksSection() {
           </Card>
 
           <div className="space-y-5">
-            <Card className="rounded-[2rem] border-0 bg-foreground text-background shadow-soft">
+            <Card className="rounded-[2rem] border border-primary/10 bg-gradient-to-br from-[#fff8f1] to-[#f4e6d6] text-foreground shadow-soft">
               <CardContent className="p-6">
-                <p className="text-sm font-semibold text-background/85">What the result includes</p>
-                <div className="mt-5 space-y-3">
+                <p className="text-sm font-semibold text-foreground">What the result includes</p>
+                <div className="mt-5 grid gap-3">
                   {methodologySignals.map((signal) => (
-                    <div key={signal} className="rounded-[1rem] border border-white/10 bg-white/5 px-4 py-3 text-sm text-background/75">
+                    <div key={signal} className="rounded-[1rem] border border-primary/10 bg-white/70 px-4 py-4 text-sm text-foreground/75">
                       {signal}
                     </div>
                   ))}
@@ -79,6 +79,12 @@ export function HowItWorksSection() {
                 <p className="mt-3 text-sm leading-7 text-foreground/65">
                   This app does not guarantee your exact offer. Actual salaries still vary by employer, negotiation, benefits, and how current the local benchmark data is.
                 </p>
+                <div className="mt-5 rounded-[1rem] border border-border/60 bg-panel px-4 py-4">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-foreground/45">Why that matters</p>
+                  <p className="mt-2 text-sm leading-6 text-foreground/65">
+                    The product should help you negotiate with better context, not pressure you into trusting a made-up exact number.
+                  </p>
+                </div>
               </CardContent>
             </Card>
           </div>

@@ -67,10 +67,14 @@ export function useSalaryEstimator() {
     });
   }
 
-  async function calculate() {
-    if (activeTab === "compare") {
+  async function runEstimate(forcePredict = false) {
+    if (!forcePredict && activeTab === "compare") {
       setHasCalculated(true);
       return;
+    }
+
+    if (forcePredict) {
+      setActiveTab("predict");
     }
 
     setIsCalculating(true);
@@ -94,6 +98,14 @@ export function useSalaryEstimator() {
     }
   }
 
+  async function calculate() {
+    await runEstimate(false);
+  }
+
+  async function showSampleEstimate() {
+    await runEstimate(true);
+  }
+
   return {
     activeTab,
     calculate,
@@ -105,6 +117,7 @@ export function useSalaryEstimator() {
     hasCalculated,
     isCalculating,
     setActiveTab: updateTab,
+    showSampleEstimate,
     skillOptions: visibleSkillOptions,
     tabs: estimatorTabs,
     toggleSkill,

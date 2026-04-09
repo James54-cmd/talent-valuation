@@ -26,9 +26,9 @@ type EstimatorFormProps = {
 export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
   ({ activeTab, calculationError, fields, form, isCalculating, onCalculate, onChangeTab, onChangeField, onToggleSkill, skillOptions, tabs }, ref) => {
     return (
-      <section ref={ref} id="valuation-workbench" className="py-16 sm:py-20">
+      <section ref={ref} id="valuation-workbench" className="bg-[linear-gradient(180deg,rgba(185,82,34,0.08),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.4),rgba(228,212,191,0.18))] py-16 sm:py-20">
         <PageContainer>
-          <Card className="rounded-[2rem] border-border/60 bg-panel shadow-soft">
+          <Card className="rounded-[2rem] border-primary/10 bg-[rgba(255,250,245,0.82)] shadow-soft backdrop-blur-sm">
             <CardContent className="space-y-8 p-6 sm:p-8 lg:p-10">
               <SectionHeading
                 eyebrow="01 / Estimator"
@@ -57,26 +57,67 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
                 </TabsList>
               </Tabs>
 
-              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {fields.map((field) => (
-                  <Card key={field.id} className="rounded-[1.5rem] border-border/60 bg-background shadow-none transition hover:border-primary/20">
-                    <CardContent className="space-y-3 px-4 py-4">
-                      <span className="block text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/45">{field.label}</span>
-                      <Select value={form[field.id]} onValueChange={(value) => onChangeField(field.id, value)}>
-                        <SelectTrigger className="h-auto border-0 bg-transparent px-0 py-0 text-base font-medium shadow-none ring-0 focus:ring-0 focus:ring-offset-0">
-                          <SelectValue placeholder={field.label} />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {field.options.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </CardContent>
-                  </Card>
-                ))}
+              <div className="grid gap-4 xl:grid-cols-[1.25fr_0.85fr]">
+                <div className="grid gap-4 md:grid-cols-2">
+                  {fields.map((field) => (
+                    <Card key={field.id} className="rounded-[1.5rem] border-border/60 bg-background shadow-none transition hover:border-primary/20">
+                      <CardContent className="space-y-3 px-4 py-4">
+                        <span className="block text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/45">{field.label}</span>
+                        <Select value={form[field.id]} onValueChange={(value) => onChangeField(field.id, value)}>
+                          <SelectTrigger className="h-auto border-0 bg-transparent px-0 py-0 text-base font-medium shadow-none ring-0 focus:ring-0 focus:ring-offset-0">
+                            <SelectValue placeholder={field.label} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {field.options.map((option) => (
+                              <SelectItem key={option.value} value={option.value}>
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                <Card className="rounded-[1.75rem] border-0 bg-foreground text-background shadow-soft">
+                  <CardContent className="space-y-5 p-5">
+                    <div>
+                      <p className="text-[11px] uppercase tracking-[0.28em] text-background/50">Current benchmark lens</p>
+                      <p className="mt-3 text-lg font-semibold text-background">
+                        {fields.find((field) => field.id === "title")?.options.find((option) => option.value === form.title)?.label ?? "Selected role"}
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-background/65">
+                        {activeTab === "compare"
+                          ? "This view compares only the researched city rows we considered strong enough to publish."
+                          : "These selections shape the benchmark before the salary range, 13th month context, and confidence note are shown."}
+                      </p>
+                    </div>
+
+                    <div className="space-y-3">
+                      {fields
+                        .filter((field) => field.id !== "title")
+                        .slice(0, 4)
+                        .map((field) => (
+                          <div key={field.id} className="flex items-center justify-between rounded-[1rem] border border-white/10 bg-white/5 px-4 py-3">
+                            <span className="text-sm text-background/60">{field.label}</span>
+                            <span className="text-sm font-medium text-background">
+                              {field.options.find((option) => option.value === form[field.id])?.label ?? form[field.id]}
+                            </span>
+                          </div>
+                        ))}
+                    </div>
+
+                    {skillOptions.length > 0 ? (
+                      <div className="rounded-[1rem] border border-white/10 bg-white/5 px-4 py-4">
+                        <p className="text-[11px] uppercase tracking-[0.24em] text-background/50">Specialization coverage</p>
+                        <p className="mt-2 text-sm leading-6 text-background/65">
+                          These options are filtered to the selected job title so the specialization chips stay more believable and role-specific.
+                        </p>
+                      </div>
+                    ) : null}
+                  </CardContent>
+                </Card>
               </div>
 
               {skillOptions.length > 0 ? (
@@ -120,15 +161,22 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
 
               {calculationError ? <p className="text-sm text-amber-700">{calculationError}</p> : null}
 
-              <Button
-                onClick={onCalculate}
-                size="lg"
-                disabled={isCalculating}
-                className="w-fit rounded-full px-6 shadow-soft transition hover:-translate-y-0.5 disabled:translate-y-0"
-              >
-                {isCalculating ? "Refreshing estimate..." : activeTab === "compare" ? "Compare by city" : "Show my salary estimate"}
-                <ArrowRight className="h-4 w-4" />
-              </Button>
+              <div className="flex flex-wrap items-center gap-4">
+                <Button
+                  onClick={onCalculate}
+                  size="lg"
+                  disabled={isCalculating}
+                  className="w-fit rounded-full px-6 shadow-soft transition hover:-translate-y-0.5 disabled:translate-y-0"
+                >
+                  {isCalculating ? "Refreshing estimate..." : activeTab === "compare" ? "Compare by city" : "Show my salary estimate"}
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+                <p className="text-sm text-foreground/55">
+                  {activeTab === "compare"
+                    ? "Best for comparing city benchmarks we currently trust."
+                    : "Best for checking a personalized monthly salary range."}
+                </p>
+              </div>
             </CardContent>
           </Card>
         </PageContainer>

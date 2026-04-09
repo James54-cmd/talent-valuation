@@ -26,6 +26,7 @@ export function SalaryEstimatorPage() {
     hasCalculated,
     isCalculating,
     setActiveTab,
+    showSampleEstimate,
     skillOptions,
     tabs,
     toggleSkill,
@@ -48,8 +49,12 @@ export function SalaryEstimatorPage() {
     workbenchRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function revealResults() {
-    calculate();
+  async function revealResults() {
+    await calculate();
+  }
+
+  async function revealSampleEstimate() {
+    await showSampleEstimate();
   }
 
   const summary = `${getActiveRoleTitle(form.title)} · ${estimate.summary}`;
@@ -59,7 +64,7 @@ export function SalaryEstimatorPage() {
       <h1 className="sr-only">SalarioPH salary estimator for the Philippines</h1>
       <SiteHeader />
       <MarketStatsStrip />
-      <HeroPanel estimate={estimate} summary={summary} onOpenWorkbench={scrollToWorkbench} onShowPreview={revealResults} />
+      <HeroPanel estimate={estimate} summary={summary} onOpenWorkbench={scrollToWorkbench} onShowPreview={revealSampleEstimate} />
       <PHBenchmarksSection />
       <HowItWorksSection />
       <EstimatorForm
