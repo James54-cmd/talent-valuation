@@ -3,8 +3,11 @@ import type { ReactNode } from "react";
 import "@/app/globals.css";
 
 export const metadata: Metadata = {
-  title: "Paygrade",
-  description: "Talent valuation studio for modern salary benchmarking.",
+  title: "SalarioPH",
+  description: "Philippine salary guide for benchmarking pay, city differences, and market context.",
+  icons: {
+    icon: "/salario-favicon.svg",
+  },
 };
 
 type RootLayoutProps = Readonly<{
