@@ -1,9 +1,11 @@
 import { startTransition, useState } from "react";
 import {
+  createCityComparisonResult,
   createSalaryEstimate,
   defaultFormState,
   estimatorFields,
   estimatorTabs,
+  getAvailableComparisonRoles,
   getSkillOptions,
 } from "@/features/salary-estimator/lib/salary-estimator-data";
 import { requestSalaryEstimate } from "@/features/salary-estimator/lib/request-salary-estimate";
@@ -18,7 +20,25 @@ export function useSalaryEstimator() {
   const [serverEstimate, setServerEstimate] = useState(() => createSalaryEstimate(defaultFormState));
 
   const previewEstimate = createSalaryEstimate(form);
+  const cityComparison = createCityComparisonResult(form);
   const estimate = hasCalculated ? serverEstimate : previewEstimate;
+  const comparisonRoleSlugs = getAvailableComparisonRoles();
+  const visibleFields =
+    activeTab === "compare" ? estimatorFields.filter((field) => field.id !== "location") : estimatorFields;
+  const visibleSkillOptions = activeTab === "compare" ? [] : getSkillOptions();
+
+  function updateTab(tabId: EstimatorTabId) {
+    setActiveTab(tabId);
+    setHasCalculated(false);
+    setCalculationError(null);
+
+    if (tabId === "compare" && !comparisonRoleSlugs.includes(form.title)) {
+      setForm((current) => ({
+        ...current,
+        title: "software-engineer",
+      }));
+    }
+  }
 
   function updateField<Key extends keyof SalaryFormState>(field: Key, value: SalaryFormState[Key]) {
     setForm((current) => ({
@@ -41,6 +61,11 @@ export function useSalaryEstimator() {
   }
 
   async function calculate() {
+    if (activeTab === "compare") {
+      setHasCalculated(true);
+      return;
+    }
+
     setIsCalculating(true);
     setCalculationError(null);
 
@@ -66,13 +91,14 @@ export function useSalaryEstimator() {
     activeTab,
     calculate,
     calculationError,
-    estimatorFields,
+    cityComparison,
+    estimatorFields: visibleFields,
     estimate,
     form,
     hasCalculated,
     isCalculating,
-    setActiveTab,
-    skillOptions: getSkillOptions(),
+    setActiveTab: updateTab,
+    skillOptions: visibleSkillOptions,
     tabs: estimatorTabs,
     toggleSkill,
     updateField,

@@ -1,4 +1,4 @@
-export type EstimatorTabId = "predict" | "compare" | "trends";
+export type EstimatorTabId = "predict" | "compare";
 
 export type FieldOption = {
   value: string;
@@ -76,6 +76,28 @@ export type PeerRole = {
   title: string;
   company: string;
   compensation: string;
+};
+
+export type CityComparisonRow = {
+  locationSlug: string;
+  locationLabel: string;
+  medianMonthlyGross: number;
+  p25MonthlyGross: number;
+  p75MonthlyGross: number;
+  confidenceScore: number;
+  sampleSizeEstimate: number;
+  effectiveDate: string;
+  sourceSummary: string;
+  derivationNotes: string;
+  dataQualityFlag: "direct-city" | "national-adjusted" | "inferred-ratio";
+  pesoDifferenceFromMetroManila: number;
+  percentDifferenceFromMetroManila: number;
+};
+
+export type CityComparisonResult = {
+  availableCities: CityComparisonRow[];
+  benchmarkedRoleTitle: string;
+  caveat?: string;
 };
 
 export type SalaryEstimate = {

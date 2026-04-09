@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { SiteHeader } from "@/components/layout/site-header";
+import { CityComparisonResults } from "@/features/salary-estimator/components/city-comparison-results";
 import { EstimatorForm } from "@/features/salary-estimator/components/estimator-form";
 import { EstimatorResults } from "@/features/salary-estimator/components/estimator-results";
 import { HeroPanel } from "@/features/salary-estimator/components/hero-panel";
@@ -16,6 +17,7 @@ export function SalaryEstimatorPage() {
     activeTab,
     calculate,
     calculationError,
+    cityComparison,
     estimatorFields,
     estimate,
     form,
@@ -72,7 +74,7 @@ export function SalaryEstimatorPage() {
       />
       {hasCalculated ? (
         <div ref={resultsRef}>
-          <EstimatorResults estimate={estimate} />
+          {activeTab === "compare" ? <CityComparisonResults result={cityComparison} /> : <EstimatorResults estimate={estimate} />}
         </div>
       ) : null}
     </div>

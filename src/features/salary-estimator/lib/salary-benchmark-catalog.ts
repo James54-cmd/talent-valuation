@@ -1,5 +1,7 @@
 import type {
   BenefitInsight,
+  CityComparisonResult,
+  CityComparisonRow,
   EstimatorField,
   EstimatorTabId,
   FieldOption,
@@ -51,7 +53,6 @@ export const skillOptions: FieldOption[] = [
 export const estimatorTabs: Array<{ id: EstimatorTabId; label: string }> = [
   { id: "predict", label: "Estimate salary" },
   { id: "compare", label: "Compare by city" },
-  { id: "trends", label: "Market trends" },
 ];
 
 export const estimatorFields: EstimatorField[] = [
@@ -133,6 +134,136 @@ export const salarySignals = [
   { value: "92%", label: "confidence on common benchmark patterns" },
   { value: "Remote Intl", label: "separate from PH-local remote compensation" },
   { value: "Updated Apr 2026", label: "trust signal shown in the result" },
+];
+
+type AcceptedCityComparisonSeed = {
+  roleSlug: string;
+  roleTitle: string;
+  locationSlug: string;
+  medianMonthlyGross: number;
+  p25MonthlyGross: number;
+  p75MonthlyGross: number;
+  confidenceScore: number;
+  sampleSizeEstimate: number;
+  effectiveDate: string;
+  sourceSummary: string;
+  derivationNotes: string;
+  dataQualityFlag: CityComparisonRow["dataQualityFlag"];
+};
+
+const cityComparisonSeeds: AcceptedCityComparisonSeed[] = [
+  {
+    roleSlug: "software-engineer",
+    roleTitle: "Software Engineer",
+    locationSlug: "metro-manila",
+    medianMonthlyGross: 85000,
+    p25MonthlyGross: 50000,
+    p75MonthlyGross: 120000,
+    confidenceScore: 70,
+    sampleSizeEstimate: 50,
+    effectiveDate: "2026-03-01",
+    sourceSummary: "Levels.fyi Manila range",
+    derivationNotes: "Annual compensation range converted to monthly gross for Metro Manila.",
+    dataQualityFlag: "direct-city",
+  },
+  {
+    roleSlug: "software-engineer",
+    roleTitle: "Software Engineer",
+    locationSlug: "cebu",
+    medianMonthlyGross: 70000,
+    p25MonthlyGross: 40000,
+    p75MonthlyGross: 100000,
+    confidenceScore: 60,
+    sampleSizeEstimate: 20,
+    effectiveDate: "2026-03-01",
+    sourceSummary: "Levels.fyi Cebu range",
+    derivationNotes: "Annual compensation range converted to monthly gross for Cebu.",
+    dataQualityFlag: "direct-city",
+  },
+  {
+    roleSlug: "senior-software-engineer",
+    roleTitle: "Senior Software Engineer",
+    locationSlug: "metro-manila",
+    medianMonthlyGross: 110000,
+    p25MonthlyGross: 80000,
+    p75MonthlyGross: 150000,
+    confidenceScore: 65,
+    sampleSizeEstimate: 100,
+    effectiveDate: "2026-03-01",
+    sourceSummary: "Levels.fyi Manila software engineering range, scaled to senior level",
+    derivationNotes: "Senior benchmark built conservatively from Manila software engineering market data.",
+    dataQualityFlag: "national-adjusted",
+  },
+  {
+    roleSlug: "senior-software-engineer",
+    roleTitle: "Senior Software Engineer",
+    locationSlug: "cebu",
+    medianMonthlyGross: 60000,
+    p25MonthlyGross: 45000,
+    p75MonthlyGross: 85000,
+    confidenceScore: 70,
+    sampleSizeEstimate: 26,
+    effectiveDate: "2025-07-01",
+    sourceSummary: "Indeed Cebu direct average",
+    derivationNotes: "Direct Cebu average for senior software engineering roles.",
+    dataQualityFlag: "direct-city",
+  },
+  {
+    roleSlug: "customer-service-representative",
+    roleTitle: "Customer Service Representative",
+    locationSlug: "metro-manila",
+    medianMonthlyGross: 28000,
+    p25MonthlyGross: 22000,
+    p75MonthlyGross: 38000,
+    confidenceScore: 75,
+    sampleSizeEstimate: 1000,
+    effectiveDate: "2026-03-01",
+    sourceSummary: "Metro Manila BPO-adjusted market estimate",
+    derivationNotes: "Metro Manila CSR benchmark anchored to high-volume BPO hiring context.",
+    dataQualityFlag: "national-adjusted",
+  },
+  {
+    roleSlug: "accountant",
+    roleTitle: "Accountant",
+    locationSlug: "metro-manila",
+    medianMonthlyGross: 34000,
+    p25MonthlyGross: 28000,
+    p75MonthlyGross: 45000,
+    confidenceScore: 85,
+    sampleSizeEstimate: 3100,
+    effectiveDate: "2026-03-01",
+    sourceSummary: "Indeed Manila and Taguig direct salaries",
+    derivationNotes: "Direct Metro Manila accounting salary signal.",
+    dataQualityFlag: "direct-city",
+  },
+  {
+    roleSlug: "accountant",
+    roleTitle: "Accountant",
+    locationSlug: "cebu",
+    medianMonthlyGross: 37000,
+    p25MonthlyGross: 30000,
+    p75MonthlyGross: 48000,
+    confidenceScore: 80,
+    sampleSizeEstimate: 200,
+    effectiveDate: "2026-03-01",
+    sourceSummary: "Indeed Cebu City direct salaries",
+    derivationNotes: "Direct Cebu accounting salary signal.",
+    dataQualityFlag: "direct-city",
+  },
+  {
+    roleSlug: "data-analyst",
+    roleTitle: "Data Analyst",
+    locationSlug: "metro-manila",
+    medianMonthlyGross: 35000,
+    p25MonthlyGross: 25000,
+    p75MonthlyGross: 45000,
+    confidenceScore: 80,
+    sampleSizeEstimate: 1400,
+    effectiveDate: "2026-03-01",
+    sourceSummary: "Indeed Metro Manila data analyst salaries",
+    derivationNotes: "Direct Metro Manila salary signal from data analyst city pages.",
+    dataQualityFlag: "direct-city",
+  },
 ];
 
 export const defaultFormState: SalaryFormState = {
@@ -267,5 +398,46 @@ export function createBenchmarkRecord(form: SalaryFormState): SalaryBenchmarkRec
     sampleSize: role.sampleSize,
     updatedAt: "April 2026",
     sourceLabels: defaultSources.map((source) => source.label),
+  };
+}
+
+export function getAvailableComparisonRoles() {
+  return Array.from(new Set(cityComparisonSeeds.map((row) => row.roleSlug)));
+}
+
+export function createCityComparisonResult(form: SalaryFormState): CityComparisonResult {
+  const rows = cityComparisonSeeds.filter((row) => row.roleSlug === form.title);
+
+  if (rows.length === 0) {
+    return {
+      benchmarkedRoleTitle: getActiveRoleTitle(form.title),
+      availableCities: [],
+      caveat: "We only show city comparison where the researched city rows were strong enough to trust for launch.",
+    };
+  }
+
+  const metroManilaRow = rows.find((row) => row.locationSlug === "metro-manila") ?? rows[0];
+
+  return {
+    benchmarkedRoleTitle: rows[0]?.roleTitle ?? getActiveRoleTitle(form.title),
+    availableCities: rows.map((row) => ({
+      locationSlug: row.locationSlug,
+      locationLabel: getFieldLabel("location", row.locationSlug),
+      medianMonthlyGross: row.medianMonthlyGross,
+      p25MonthlyGross: row.p25MonthlyGross,
+      p75MonthlyGross: row.p75MonthlyGross,
+      confidenceScore: row.confidenceScore,
+      sampleSizeEstimate: row.sampleSizeEstimate,
+      effectiveDate: row.effectiveDate,
+      sourceSummary: row.sourceSummary,
+      derivationNotes: row.derivationNotes,
+      dataQualityFlag: row.dataQualityFlag,
+      pesoDifferenceFromMetroManila: row.medianMonthlyGross - metroManilaRow.medianMonthlyGross,
+      percentDifferenceFromMetroManila: Math.round(((row.medianMonthlyGross - metroManilaRow.medianMonthlyGross) / metroManilaRow.medianMonthlyGross) * 100),
+    })),
+    caveat:
+      rows.length < 3
+        ? "Only cities with researched and launch-safe evidence are shown here. Missing cities stay hidden until we have stronger local data."
+        : undefined,
   };
 }

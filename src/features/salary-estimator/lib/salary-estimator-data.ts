@@ -1,8 +1,10 @@
 export {
+  createCityComparisonResult,
   defaultFormState,
   estimatorFields,
   estimatorTabs,
   getActiveRoleTitle,
+  getAvailableComparisonRoles,
   getSkillOptions,
   salarySignals,
 } from "@/features/salary-estimator/lib/salary-benchmark-catalog";

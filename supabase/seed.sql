@@ -59,7 +59,7 @@ insert into public.source_batches (name, source_type, notes, published_on, is_ac
   (
     'PH salary benchmark launch batch',
     'normalized_seed',
-    'Seeded benchmark data aligned with the initial SalarioPH deterministic formula and public methodology.',
+    'Seeded MVP benchmark data using the strongest currently accepted and auditable Philippine-market rows for launch.',
     date '2026-04-01',
     true
   )
@@ -135,23 +135,35 @@ select
   selected_source_batch.id
 from (
   values
-    ('software-engineer', 73000.00, 64000.00, 83200.00, 87600.00, 3500.00, 90, 1640),
-    ('senior-software-engineer', 128000.00, 111400.00, 145900.00, 153600.00, 3500.00, 91, 920),
-    ('customer-service-representative', 33000.00, 28700.00, 37600.00, 14850.00, 2500.00, 84, 1380),
-    ('data-analyst', 67000.00, 58300.00, 76400.00, 30150.00, 3500.00, 88, 1045),
-    ('product-manager', 115000.00, 100100.00, 131100.00, 138000.00, 3500.00, 89, 610),
-    ('accountant', 67000.00, 58300.00, 76400.00, 80400.00, 2000.00, 86, 860),
-    ('hr-specialist', 57000.00, 49600.00, 65000.00, 68400.00, 2000.00, 85, 690),
-    ('virtual-assistant', 62000.00, 53900.00, 70700.00, 27900.00, 3500.00, 87, 1110),
-    ('registered-nurse', 53000.00, 46100.00, 60400.00, 23850.00, 2000.00, 84, 980),
-    ('graphic-designer', 54000.00, 47000.00, 61600.00, 24300.00, 3500.00, 85, 750)
-) as seeded(role_slug, median_monthly_gross, p25_monthly_gross, p75_monthly_gross, estimated_annual_bonus, estimated_monthly_allowances, confidence_score, sample_size)
+    ('software-engineer', 'metro-manila', 'mid', 'tech', 'hybrid', 'mnc', 93000.00, 73000.00, 142000.00, 0.00, 1235.00, 80, 1000),
+    ('software-engineer', 'cebu', 'mid', 'tech', 'hybrid', 'startup', 45000.00, 35000.00, 60000.00, 0.00, 1000.00, 60, 100),
+    ('senior-software-engineer', 'metro-manila', 'senior', 'tech', 'remote-ph', 'mnc', 120000.00, 100000.00, 150000.00, 0.00, 1500.00, 90, 200),
+    ('customer-service-representative', 'metro-manila', 'mid', 'bpo', 'onsite', 'mnc', 29000.00, 24000.00, 37000.00, 0.00, 1235.00, 70, 2000),
+    ('customer-service-representative', 'cebu', 'mid', 'bpo', 'onsite', 'mnc', 27000.00, 22000.00, 34000.00, 0.00, 1000.00, 70, 1000),
+    ('data-analyst', 'metro-manila', 'mid', 'finance', 'hybrid', 'mnc', 40000.00, 32000.00, 52000.00, 0.00, 1235.00, 80, 300),
+    ('accountant', 'metro-manila', 'mid', 'finance', 'hybrid', 'local-sme', 38000.00, 30000.00, 48000.00, 0.00, 1235.00, 70, 400),
+    ('hr-specialist', 'metro-manila', 'mid', 'other', 'hybrid', 'mnc', 37000.00, 30000.00, 47000.00, 0.00, 1235.00, 90, 500)
+) as seeded(
+  role_slug,
+  location_slug,
+  experience_slug,
+  industry_slug,
+  work_setup_slug,
+  company_type_slug,
+  median_monthly_gross,
+  p25_monthly_gross,
+  p75_monthly_gross,
+  estimated_annual_bonus,
+  estimated_monthly_allowances,
+  confidence_score,
+  sample_size
+)
 join public.benchmark_roles roles on roles.slug = seeded.role_slug
-join public.benchmark_dimensions location_dim on location_dim.dimension_type = 'location' and location_dim.slug = 'metro-manila'
-join public.benchmark_dimensions experience_dim on experience_dim.dimension_type = 'experience' and experience_dim.slug = 'mid'
-join public.benchmark_dimensions industry_dim on industry_dim.dimension_type = 'industry' and industry_dim.slug = case when seeded.role_slug in ('customer-service-representative') then 'bpo' when seeded.role_slug in ('accountant') then 'finance' when seeded.role_slug in ('registered-nurse') then 'healthcare' else 'tech' end
-join public.benchmark_dimensions work_setup_dim on work_setup_dim.dimension_type = 'work_setup' and work_setup_dim.slug = 'hybrid'
-join public.benchmark_dimensions company_type_dim on company_type_dim.dimension_type = 'company_type' and company_type_dim.slug = 'mnc'
+join public.benchmark_dimensions location_dim on location_dim.dimension_type = 'location' and location_dim.slug = seeded.location_slug
+join public.benchmark_dimensions experience_dim on experience_dim.dimension_type = 'experience' and experience_dim.slug = seeded.experience_slug
+join public.benchmark_dimensions industry_dim on industry_dim.dimension_type = 'industry' and industry_dim.slug = seeded.industry_slug
+join public.benchmark_dimensions work_setup_dim on work_setup_dim.dimension_type = 'work_setup' and work_setup_dim.slug = seeded.work_setup_slug
+join public.benchmark_dimensions company_type_dim on company_type_dim.dimension_type = 'company_type' and company_type_dim.slug = seeded.company_type_slug
 cross join selected_source_batch
 on conflict (role_id, location_id, experience_id, industry_id, work_setup_id, company_type_id, effective_date) do update set
   median_monthly_gross = excluded.median_monthly_gross,

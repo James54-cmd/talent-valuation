@@ -32,8 +32,12 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
             <CardContent className="space-y-8 p-6 sm:p-8 lg:p-10">
               <SectionHeading
                 eyebrow="01 / Estimator"
-                title="Tell us what kind of role you are benchmarking."
-                description="Use the filters below to get a salary range that feels closer to how compensation is actually discussed in the Philippines: monthly pay, city-based differences, remote premiums, and company type."
+                title={activeTab === "compare" ? "Compare a role across Philippine cities." : "Tell us what kind of role you are benchmarking."}
+                description={
+                  activeTab === "compare"
+                    ? "We only compare cities where the researched rows were strong enough to trust. Pick a role and context, then we will show the available city benchmarks against Metro Manila."
+                    : "Use the filters below to get a salary range that feels closer to how compensation is actually discussed in the Philippines: monthly pay, city-based differences, remote premiums, and company type."
+                }
               />
 
               <Tabs value={activeTab} onValueChange={(value) => onChangeTab(value as EstimatorTabId)}>
@@ -75,42 +79,44 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
                 ))}
               </div>
 
-              <Card className="rounded-[1.5rem] border-border/60 bg-background shadow-none">
-                <CardContent className="p-5">
-                  <div className="space-y-2">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/45">
-                      Tools or specialization
-                    </p>
-                    <p className="text-sm leading-6 text-foreground/65">
-                      Optional, but helpful when your role pays differently because of domain tools, technical depth, or specialized work.
-                    </p>
-                  </div>
+              {skillOptions.length > 0 ? (
+                <Card className="rounded-[1.5rem] border-border/60 bg-background shadow-none">
+                  <CardContent className="p-5">
+                    <div className="space-y-2">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/45">
+                        Tools or specialization
+                      </p>
+                      <p className="text-sm leading-6 text-foreground/65">
+                        Optional, but helpful when your role pays differently because of domain tools, technical depth, or specialized work.
+                      </p>
+                    </div>
 
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {skillOptions.map((skill) => {
-                      const isSelected = form.skills.includes(skill.value);
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {skillOptions.map((skill) => {
+                        const isSelected = form.skills.includes(skill.value);
 
-                      return (
-                        <Button
-                          key={skill.value}
-                          onClick={() => onToggleSkill(skill.value)}
-                          type="button"
-                          variant={isSelected ? "default" : "outline"}
-                          size="sm"
-                          className={cn(
-                            "rounded-full transition",
-                            isSelected
-                              ? "border-foreground bg-foreground text-background hover:bg-foreground/90"
-                              : "border-border bg-panel text-foreground/70 hover:border-primary/25 hover:bg-panel hover:text-foreground",
-                          )}
-                        >
-                          {skill.label}
-                        </Button>
-                      );
-                    })}
-                  </div>
-                </CardContent>
-              </Card>
+                        return (
+                          <Button
+                            key={skill.value}
+                            onClick={() => onToggleSkill(skill.value)}
+                            type="button"
+                            variant={isSelected ? "default" : "outline"}
+                            size="sm"
+                            className={cn(
+                              "rounded-full transition",
+                              isSelected
+                                ? "border-foreground bg-foreground text-background hover:bg-foreground/90"
+                                : "border-border bg-panel text-foreground/70 hover:border-primary/25 hover:bg-panel hover:text-foreground",
+                            )}
+                          >
+                            {skill.label}
+                          </Button>
+                        );
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+              ) : null}
 
               {calculationError ? <p className="text-sm text-amber-700">{calculationError}</p> : null}
 
@@ -120,7 +126,7 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
                 disabled={isCalculating}
                 className="w-fit rounded-full px-6 shadow-soft transition hover:-translate-y-0.5 disabled:translate-y-0"
               >
-                {isCalculating ? "Refreshing estimate..." : "Show my salary estimate"}
+                {isCalculating ? "Refreshing estimate..." : activeTab === "compare" ? "Compare by city" : "Show my salary estimate"}
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </CardContent>
