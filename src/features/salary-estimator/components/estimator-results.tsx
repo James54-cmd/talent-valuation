@@ -1,3 +1,4 @@
+import { ScrollReveal } from "@/components/common/scroll-reveal";
 import { SectionHeading } from "@/components/common/section-heading";
 import { PageContainer } from "@/components/layout/page-container";
 import { Badge } from "@/components/ui/badge";
@@ -16,14 +17,17 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
   return (
     <section className="animate-rise py-16 sm:py-20">
       <PageContainer className="space-y-10">
-        <SectionHeading
-          eyebrow="02 / Result"
-          title="Your estimated salary range in the Philippine market."
-          description="This result is designed to be useful in a real compensation conversation: monthly gross first, yearly context second, and a clear explanation of 13th month pay, benefits, and benchmark confidence."
-        />
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="02 / Result"
+            title="Your estimated salary range in the Philippine market."
+            description="This result is designed to be useful in a real compensation conversation: monthly gross first, yearly context second, and a clear explanation of 13th month pay, benefits, and benchmark confidence."
+          />
+        </ScrollReveal>
 
         <div className="grid gap-5 lg:grid-cols-[1.35fr_0.95fr]">
-          <Card className="rounded-[2rem] border-border/60 bg-panel shadow-soft">
+          <ScrollReveal variant="left" delay={80}>
+            <Card className="rounded-[2rem] border-border/60 bg-panel shadow-soft">
             <CardContent className="p-6 sm:p-8">
               <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
                 <div>
@@ -98,8 +102,9 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
               </div>
             </CardContent>
           </Card>
+          </ScrollReveal>
 
-          <div className="space-y-5">
+          <ScrollReveal variant="right" delay={160} className="space-y-5">
             <Card className="rounded-[2rem] border-border/60 bg-panel shadow-soft">
               <CardContent className="p-6">
                 <p className="text-sm font-semibold text-foreground">What influenced the estimate</p>
@@ -162,10 +167,10 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </ScrollReveal>
         </div>
 
-        <div className="space-y-6 border-t border-border/60 pt-10">
+        <ScrollReveal delay={220} className="space-y-6 border-t border-border/60 pt-10">
           <SectionHeading
             eyebrow="03 / Context"
             title="Comparable salary signals in the Philippine market."
@@ -196,7 +201,7 @@ export function EstimatorResults({ estimate }: EstimatorResultsProps) {
               </Card>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
       </PageContainer>
     </section>
   );

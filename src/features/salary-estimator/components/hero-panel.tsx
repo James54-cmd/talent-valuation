@@ -1,4 +1,5 @@
 import { ArrowRight, Sparkles } from "lucide-react";
+import { ScrollReveal } from "@/components/common/scroll-reveal";
 import { PageContainer } from "@/components/layout/page-container";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,7 +20,7 @@ export function HeroPanel({ estimate, summary, onOpenWorkbench, onShowPreview }:
     <section className="relative overflow-hidden py-16 sm:py-20">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-full bg-[radial-gradient(circle_at_top_left,rgba(179,89,50,0.14),transparent_42%),radial-gradient(circle_at_75%_25%,rgba(39,50,47,0.14),transparent_30%)]" />
       <PageContainer className="relative grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="space-y-8">
+        <ScrollReveal variant="left" className="space-y-8">
           <Badge variant="outline" className="gap-2 rounded-full border-primary/15 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-primary">
             <Sparkles className="h-3.5 w-3.5" />
             Built for Filipino job seekers and hiring teams
@@ -63,9 +64,9 @@ export function HeroPanel({ estimate, summary, onOpenWorkbench, onShowPreview }:
               <dd className="mt-2 text-lg font-medium text-foreground">{estimate.dataPoints.toLocaleString("en-PH")} data points</dd>
             </div>
           </dl>
-        </div>
+        </ScrollReveal>
 
-        <div className="relative">
+        <ScrollReveal variant="right" delay={120} className="relative">
           <Badge variant="outline" className="absolute -top-4 left-6 rounded-full border-border/70 bg-background px-4 py-2 text-xs font-medium text-foreground shadow-soft">
             Benchmarks updated {estimate.updatedAt}
           </Badge>
@@ -112,7 +113,7 @@ export function HeroPanel({ estimate, summary, onOpenWorkbench, onShowPreview }:
           <Badge variant="outline" className="absolute -bottom-4 right-5 rounded-full border-border/70 bg-background px-4 py-2 text-xs font-medium text-foreground shadow-soft">
             Range-based estimate, not a fixed promise
           </Badge>
-        </div>
+        </ScrollReveal>
       </PageContainer>
     </section>
   );

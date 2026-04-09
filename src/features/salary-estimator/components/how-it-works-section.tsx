@@ -1,3 +1,4 @@
+import { ScrollReveal } from "@/components/common/scroll-reveal";
 import { SectionHeading } from "@/components/common/section-heading";
 import { PageContainer } from "@/components/layout/page-container";
 import { Card, CardContent } from "@/components/ui/card";
@@ -36,14 +37,17 @@ export function HowItWorksSection() {
   return (
     <section id="how-it-works" className="bg-secondary/55 py-16 sm:py-20">
       <PageContainer className="space-y-10">
-        <SectionHeading
-          eyebrow="How It Works"
-          title="A Philippine benchmark engine, not a black-box salary guess."
-          description="SalarioPH is designed to be transparent. We estimate salary ranges using local benchmark signals, then explain the context so the number feels usable in a real job conversation."
-        />
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="How It Works"
+            title="A Philippine benchmark engine, not a black-box salary guess."
+            description="SalarioPH is designed to be transparent. We estimate salary ranges using local benchmark signals, then explain the context so the number feels usable in a real job conversation."
+          />
+        </ScrollReveal>
 
         <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-          <Card className="rounded-[2rem] border-border/60 bg-background shadow-soft">
+          <ScrollReveal variant="left" delay={80}>
+            <Card className="rounded-[2rem] border-border/60 bg-background shadow-soft">
             <CardContent className="space-y-5 p-6 sm:p-8">
               {methodologySteps.map((step, index) => (
                 <div key={step.title} className="grid gap-3 border-b border-border/60 pb-5 last:border-none last:pb-0 md:grid-cols-[58px_1fr]">
@@ -58,8 +62,9 @@ export function HowItWorksSection() {
               ))}
             </CardContent>
           </Card>
+          </ScrollReveal>
 
-          <div className="space-y-5">
+          <ScrollReveal variant="right" delay={160} className="space-y-5">
             <Card className="rounded-[2rem] border border-primary/10 bg-gradient-to-br from-[#fff8f1] to-[#f4e6d6] text-foreground shadow-soft">
               <CardContent className="p-6">
                 <p className="text-sm font-semibold text-foreground">What the result includes</p>
@@ -87,7 +92,7 @@ export function HowItWorksSection() {
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </ScrollReveal>
         </div>
       </PageContainer>
     </section>

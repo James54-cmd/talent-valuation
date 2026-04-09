@@ -1,3 +1,4 @@
+import { ScrollReveal } from "@/components/common/scroll-reveal";
 import { PageContainer } from "@/components/layout/page-container";
 import { Card, CardContent } from "@/components/ui/card";
 import { getBenchmarkCoverageSummary } from "@/features/salary-estimator/lib/salary-benchmark-catalog";
@@ -14,7 +15,7 @@ export function PHBenchmarksSection() {
   return (
     <section id="ph-benchmarks" className="border-y border-border/60 bg-foreground py-16 text-background sm:py-20">
       <PageContainer className="space-y-10">
-        <div className="space-y-3">
+        <ScrollReveal className="space-y-3">
           <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.28em] text-gold">
             PH Benchmarks
           </span>
@@ -26,10 +27,11 @@ export function PHBenchmarksSection() {
               This is the benchmark layer of the product: the roles, cities, and confidence levels we currently trust enough to surface for launch.
             </p>
           </div>
-        </div>
+        </ScrollReveal>
 
         <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-          <Card className="rounded-[2rem] border-white/10 bg-white/5 shadow-soft">
+          <ScrollReveal variant="left" delay={80}>
+            <Card className="rounded-[2rem] border-white/10 bg-white/5 shadow-soft">
             <CardContent className="space-y-8 p-6 sm:p-8">
               <div className="grid gap-4 sm:grid-cols-3">
                 {[
@@ -72,8 +74,9 @@ export function PHBenchmarksSection() {
               </div>
             </CardContent>
           </Card>
+          </ScrollReveal>
 
-          <div className="space-y-5">
+          <ScrollReveal variant="right" delay={160} className="space-y-5">
             <Card className="rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#3c241a] to-[#6F3D21] text-background shadow-soft">
               <CardContent className="p-6">
                 <p className="text-sm font-semibold text-background/85">What “PH benchmarks” means here</p>
@@ -102,7 +105,7 @@ export function PHBenchmarksSection() {
                 <p className="mt-2 text-xs text-background/50">Benchmark maturity for current launch scope</p>
               </CardContent>
             </Card>
-          </div>
+          </ScrollReveal>
         </div>
       </PageContainer>
     </section>

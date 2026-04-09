@@ -1,3 +1,4 @@
+import { ScrollReveal } from "@/components/common/scroll-reveal";
 import { SectionHeading } from "@/components/common/section-heading";
 import { PageContainer } from "@/components/layout/page-container";
 import { Badge } from "@/components/ui/badge";
@@ -22,20 +23,25 @@ export function CityComparisonResults({ result }: CityComparisonResultsProps) {
   return (
     <section className="animate-rise py-16 sm:py-20">
       <PageContainer className="space-y-10">
-        <SectionHeading
-          eyebrow="02 / City Comparison"
-          title={`How ${result.benchmarkedRoleTitle} pay compares by city.`}
-          description="This comparison uses only city rows we were comfortable surfacing from the researched dataset. Metro Manila is the reference point for peso and percentage differences."
-        />
+        <ScrollReveal>
+          <SectionHeading
+            eyebrow="02 / City Comparison"
+            title={`How ${result.benchmarkedRoleTitle} pay compares by city.`}
+            description="This comparison uses only city rows we were comfortable surfacing from the researched dataset. Metro Manila is the reference point for peso and percentage differences."
+          />
+        </ScrollReveal>
 
         {result.caveat ? (
-          <Card className="rounded-[1.5rem] border-border/60 bg-panel shadow-soft">
+          <ScrollReveal delay={60}>
+            <Card className="rounded-[1.5rem] border-border/60 bg-panel shadow-soft">
             <CardContent className="p-5 text-sm text-foreground/70">{result.caveat}</CardContent>
           </Card>
+          </ScrollReveal>
         ) : null}
 
         {result.availableCities.length === 0 ? (
-          <Card className="rounded-[1.5rem] border-border/60 bg-panel shadow-soft">
+          <ScrollReveal delay={100}>
+            <Card className="rounded-[1.5rem] border-border/60 bg-panel shadow-soft">
             <CardContent className="p-6">
               <p className="text-sm font-semibold text-foreground">No launch-safe city comparison yet</p>
               <p className="mt-2 text-sm text-foreground/65">
@@ -43,10 +49,12 @@ export function CityComparisonResults({ result }: CityComparisonResultsProps) {
               </p>
             </CardContent>
           </Card>
+          </ScrollReveal>
         ) : (
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {result.availableCities.map((row) => (
-              <Card key={row.locationSlug} className="rounded-[1.5rem] border-border/60 bg-panel shadow-soft">
+            {result.availableCities.map((row, index) => (
+              <ScrollReveal key={row.locationSlug} delay={80 + index * 70} variant="scale">
+                <Card className="rounded-[1.5rem] border-border/60 bg-panel shadow-soft">
                 <CardContent className="space-y-4 p-5">
                   <div className="flex items-start justify-between gap-3">
                     <div>
@@ -87,6 +95,7 @@ export function CityComparisonResults({ result }: CityComparisonResultsProps) {
                   <p className="text-xs leading-6 text-foreground/60">{row.derivationNotes}</p>
                 </CardContent>
               </Card>
+              </ScrollReveal>
             ))}
           </div>
         )}

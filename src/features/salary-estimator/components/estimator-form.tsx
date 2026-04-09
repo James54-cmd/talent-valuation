@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import { ArrowRight } from "lucide-react";
+import { ScrollReveal } from "@/components/common/scroll-reveal";
 import { SectionHeading } from "@/components/common/section-heading";
 import { PageContainer } from "@/components/layout/page-container";
 import { Button } from "@/components/ui/button";
@@ -30,17 +31,20 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
         <PageContainer>
           <Card className="rounded-[2rem] border-primary/10 bg-[rgba(255,250,245,0.82)] shadow-soft backdrop-blur-sm">
             <CardContent className="space-y-8 p-6 sm:p-8 lg:p-10">
-              <SectionHeading
-                eyebrow="01 / Estimator"
-                title={activeTab === "compare" ? "Compare a role across Philippine cities." : "Tell us what kind of role you are benchmarking."}
-                description={
-                  activeTab === "compare"
-                    ? "We only compare cities where the researched rows were strong enough to trust. Pick a role and context, then we will show the available city benchmarks against Metro Manila."
-                    : "Use the filters below to get a salary range that feels closer to how compensation is actually discussed in the Philippines: monthly pay, city-based differences, remote premiums, and company type."
-                }
-              />
+              <ScrollReveal>
+                <SectionHeading
+                  eyebrow="01 / Estimator"
+                  title={activeTab === "compare" ? "Compare a role across Philippine cities." : "Tell us what kind of role you are benchmarking."}
+                  description={
+                    activeTab === "compare"
+                      ? "We only compare cities where the researched rows were strong enough to trust. Pick a role and context, then we will show the available city benchmarks against Metro Manila."
+                      : "Use the filters below to get a salary range that feels closer to how compensation is actually discussed in the Philippines: monthly pay, city-based differences, remote premiums, and company type."
+                  }
+                />
+              </ScrollReveal>
 
-              <Tabs value={activeTab} onValueChange={(value) => onChangeTab(value as EstimatorTabId)}>
+              <ScrollReveal delay={60}>
+                <Tabs value={activeTab} onValueChange={(value) => onChangeTab(value as EstimatorTabId)}>
                 <TabsList className="h-auto flex-wrap rounded-full border border-border/60 bg-background p-1">
                   {tabs.map((tab) => (
                     <TabsTrigger
@@ -56,9 +60,10 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
                   ))}
                 </TabsList>
               </Tabs>
+              </ScrollReveal>
 
               <div className="grid gap-4 xl:grid-cols-[1.25fr_0.85fr]">
-                <div className="grid gap-4 md:grid-cols-2">
+                <ScrollReveal variant="left" delay={100} className="grid gap-4 md:grid-cols-2">
                   {fields.map((field) => (
                     <Card key={field.id} className="rounded-[1.5rem] border-border/60 bg-background shadow-none transition hover:border-primary/20">
                       <CardContent className="space-y-3 px-4 py-4">
@@ -78,9 +83,10 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
                       </CardContent>
                     </Card>
                   ))}
-                </div>
+                </ScrollReveal>
 
-                <Card className="rounded-[1.75rem] border-0 bg-foreground text-background shadow-soft">
+                <ScrollReveal variant="right" delay={180}>
+                  <Card className="rounded-[1.75rem] border-0 bg-foreground text-background shadow-soft">
                   <CardContent className="space-y-5 p-5">
                     <div>
                       <p className="text-[11px] uppercase tracking-[0.28em] text-background/50">Current benchmark lens</p>
@@ -118,10 +124,12 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
                     ) : null}
                   </CardContent>
                 </Card>
+                </ScrollReveal>
               </div>
 
               {skillOptions.length > 0 ? (
-                <Card className="rounded-[1.5rem] border-border/60 bg-background shadow-none">
+                <ScrollReveal delay={220}>
+                  <Card className="rounded-[1.5rem] border-border/60 bg-background shadow-none">
                   <CardContent className="p-5">
                     <div className="space-y-2">
                       <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-foreground/45">
@@ -157,11 +165,12 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
                     </div>
                   </CardContent>
                 </Card>
+                </ScrollReveal>
               ) : null}
 
               {calculationError ? <p className="text-sm text-amber-700">{calculationError}</p> : null}
 
-              <div className="flex flex-wrap items-center gap-4">
+              <ScrollReveal delay={260} className="flex flex-wrap items-center gap-4">
                 <Button
                   onClick={onCalculate}
                   size="lg"
@@ -176,7 +185,7 @@ export const EstimatorForm = forwardRef<HTMLElement, EstimatorFormProps>(
                     ? "Best for comparing city benchmarks we currently trust."
                     : "Best for checking a personalized monthly salary range."}
                 </p>
-              </div>
+              </ScrollReveal>
             </CardContent>
           </Card>
         </PageContainer>
