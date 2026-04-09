@@ -460,3 +460,16 @@ export function createCityComparisonResult(form: SalaryFormState): CityCompariso
         : undefined,
   };
 }
+
+export function getBenchmarkCoverageSummary() {
+  const roles = Array.from(new Set(cityComparisonSeeds.map((row) => row.roleTitle)));
+  const cities = Array.from(new Set(cityComparisonSeeds.map((row) => getFieldLabel("location", row.locationSlug))));
+  const highestConfidence = cityComparisonSeeds.reduce((current, row) => Math.max(current, row.confidenceScore), 0);
+
+  return {
+    roles,
+    cities,
+    highestConfidence,
+    updatedAt: "Q1 2026",
+  };
+}

@@ -8,6 +8,7 @@ import { EstimatorResults } from "@/features/salary-estimator/components/estimat
 import { HeroPanel } from "@/features/salary-estimator/components/hero-panel";
 import { HowItWorksSection } from "@/features/salary-estimator/components/how-it-works-section";
 import { MarketStatsStrip } from "@/features/salary-estimator/components/market-stats-strip";
+import { PHBenchmarksSection } from "@/features/salary-estimator/components/ph-benchmarks-section";
 import { getActiveRoleTitle } from "@/features/salary-estimator/lib/salary-estimator-data";
 import { useSalaryEstimator } from "@/features/salary-estimator/hooks/use-salary-estimator";
 
@@ -59,6 +60,7 @@ export function SalaryEstimatorPage() {
       <SiteHeader />
       <MarketStatsStrip />
       <HeroPanel estimate={estimate} summary={summary} onOpenWorkbench={scrollToWorkbench} onShowPreview={revealResults} />
+      <PHBenchmarksSection />
       <HowItWorksSection />
       <EstimatorForm
         ref={workbenchRef}
